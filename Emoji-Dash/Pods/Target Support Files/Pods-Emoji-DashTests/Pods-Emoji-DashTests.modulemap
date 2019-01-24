@@ -1,0 +1,6 @@
+framework module Pods_Emoji_DashTests {
+  umbrella header "Pods-Emoji-DashTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
