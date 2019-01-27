@@ -40,6 +40,7 @@ class GameScene: SKScene {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         let reveal = SKTransition.flipHorizontal(withDuration: 0.6)//fade(withDuration: 0.5)
         let game = Game(size: self.size)
+        game.scaleMode = .resizeFill
         self.view?.presentScene(game, transition: reveal)
         
     }
