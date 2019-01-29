@@ -14,6 +14,7 @@ import pop
 class Game: SKScene {
     
     var player = SKNode()
+    let firstGame = true
     
     override init(size: CGSize) {
         super.init(size: size)
@@ -26,6 +27,10 @@ class Game: SKScene {
         
         createPlayer()
         addChild(player)
+        //TODO: check from saved data if first time
+        if firstGame {
+            showOnboarding()
+        }
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -95,6 +100,40 @@ class Game: SKScene {
         spring.physicsBody?.isDynamic = false
         
         addChild(spring)
+    }
+    
+    func showOnboarding(){
+        let textLabel = SKLabelNode(fontNamed: "TeluguSangamMN")
+        textLabel.text = "Pull back the emoji to start"
+        textLabel.position = CGPoint(x: 160, y: 160)
+        textLabel.fontColor = UIColor.black
+        textLabel.fontSize = CGFloat(17)
+        textLabel.numberOfLines = 2
+        textLabel.preferredMaxLayoutWidth = 140
+        
+        let 👆 = SKSpriteNode(imageNamed: "pointerEmoji")
+        👆.position = CGPoint(x: 120, y: 120)
+        👆.size = CGSize(width: 35, height: 35)
+        let actionMove = SKAction.move(to: CGPoint(x: 👆.position.x - 25, y: 👆.position.y), duration: TimeInterval(0.8))
+        let wait = SKAction.wait(forDuration: 1.5)
+        let actionMoveReset = SKAction.move(to: CGPoint(x: 👆.position.x , y: 👆.position.y), duration: TimeInterval(0.0))
+        👆.run(SKAction.repeat(SKAction.sequence([actionMove, wait, actionMoveReset]), count: 5), completion: {
+            👆.removeFromParent()
+            })
+
+        
+        let rect = SKShapeNode(rect: CGRect(x: textLabel.position.x - textLabel.frame.width/2 - 10 ,
+                                            y: textLabel.position.y - 10,
+                                            width: textLabel.frame.width+20,
+                                            height: textLabel.frame.height+20))
+        rect.strokeColor = UIColor(red:0.40, green:0.94, blue:0.84, alpha:1.0)
+        rect.glowWidth = 1.0
+//        rect.fillColor = UIColor(red:0.94, green:0.85, blue:0.40, alpha:1.0)
+        
+        bubble.addChild(👆)
+        bubble.addChild(rect)
+        bubble.addChild(textLabel)
+        addChild(bubble)
     }
     
 }
