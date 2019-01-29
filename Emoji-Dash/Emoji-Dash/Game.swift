@@ -14,7 +14,11 @@ import pop
 class Game: SKScene {
     
     var player = SKNode()
+    var spring = SKNode()
+    let bubble = SKNode()
+    var springSprite = SKSpriteNode()
     let firstGame = true
+    var didSpring = false
     
     override init(size: CGSize) {
         super.init(size: size)
@@ -23,10 +27,9 @@ class Game: SKScene {
         physicsWorld.contactDelegate = self
         
         addSpring()
-        addChild(createPlatform(position: CGPoint(x:75, y:40), type: PlatformType.PLATFORM_GREEN))
+        addPlatform(position: CGPoint(x:75, y:40), type: PlatformType.PLATFORM_GREEN)
+        addPlayer()
         
-        createPlayer()
-        addChild(player)
         //TODO: check from saved data if first time
         if firstGame {
             showOnboarding()
@@ -37,12 +40,15 @@ class Game: SKScene {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func createPlayer(){
+    // MARK: Create Nodes
+    
+    func addPlayer(){
         let sprite = SKSpriteNode(imageNamed: "smileyEmoji")
-        sprite.size = CGSize(width: 40, height: 40)
+        sprite.size = CGSize(width: 45, height: 45)
+        sprite.name = "player"
         
         player.addChild(sprite)
-        player.position = CGPoint(x:75, y:70)
+        player.position = CGPoint(x:85, y:70)
         player.physicsBody = SKPhysicsBody(circleOfRadius: sprite.size.width/2)
         player.physicsBody?.isDynamic = false
         player.physicsBody?.allowsRotation = true
@@ -55,10 +61,12 @@ class Game: SKScene {
         player.physicsBody?.categoryBitMask = PhysicsCategory.CollisionCategoryPlayer
         player.physicsBody?.collisionBitMask = 0
         player.physicsBody?.contactTestBitMask =  PhysicsCategory.CollisionCategoryPlatform
+    
+        addChild(player)
         
     }
     
-    func createPlatform(position: CGPoint, type: PlatformType) -> PlatformNode{
+    func addPlatform(position: CGPoint, type: PlatformType) {
         let node = PlatformNode()
         node.position = position
         node.name = "NODE_PLATFORM"
@@ -86,17 +94,19 @@ class Game: SKScene {
         node.physicsBody?.collisionBitMask = 0
         node.physicsBody?.allowsRotation = false
         
-        return node;
+        addChild(node)
     }
     
     func addSpring(){
-        let spring = SKNode()
-        let sprite = SKSpriteNode(imageNamed: "spring")
-        sprite.size = CGSize(width: 80, height: 25)
+        springSprite = SKSpriteNode(imageNamed: "spring")
+        springSprite.size = CGSize(width: 85, height: 30)
+        springSprite.name = "spring"
+        springSprite.anchorPoint = CGPoint(x: 0, y: 0)
+        springSprite.zPosition = -1
         
-        spring.addChild(sprite)
-        spring.position = CGPoint(x:20, y:70)
-        spring.physicsBody = SKPhysicsBody(rectangleOf: sprite.size)
+        spring.addChild(springSprite)
+        spring.position = CGPoint(x:-1, y:55)
+        spring.physicsBody = SKPhysicsBody(rectangleOf: springSprite.size)
         spring.physicsBody?.isDynamic = false
         
         addChild(spring)
@@ -135,6 +145,65 @@ class Game: SKScene {
         bubble.addChild(textLabel)
         addChild(bubble)
     }
+    
+
+    
+    // MARK: Handle Touches
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for touch in touches {
+            let location = touch.location(in: self)
+            let node : SKNode = self.atPoint(location)
+//            print(node.name ?? "??")
+            if node.name == "spring" {
+                print("Hello")
+            }
+        }
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?){
+        bubble.removeFromParent()
+        for touch in touches {
+            let location = touch.location(in: self)
+            let node : SKNode = self.atPoint(location)
+            print("ended")
+            print(node.name ?? "??")
+            print(node)
+            if node.name == "player" || node.name == "spring" {
+                print("width: \(springSprite.frame.width)")
+                print("x: \(player.position.x)")
+                let expand = SKAction.resize(toWidth: 89.0, duration: TimeInterval(0.3))
+                let retract = SKAction.resize(toWidth: 85.0, duration: TimeInterval(0.3))
+                springSprite.run(SKAction.sequence([expand, retract]))//SKAction.sequence([expand, retract])
+                player.run(SKAction.move(to: CGPoint(x: player.position.x + 200, y: player.position.y), duration: TimeInterval(0.5)))
+                didSpring = true
+            }
+        }
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for touch in touches {
+            let location = touch.location(in: self)
+            let node : SKNode = self.atPoint(location)
+//            print(node.name ?? "??")
+            if node.name == "player" && !didSpring{
+                let previousPosition = touch.previousLocation(in: self)
+                let translation = CGPoint(x: location.x - previousPosition.x, y: location.y - previousPosition.y)
+                slidePlayer(translation: translation, selectedNode: node)
+                scrunchSpring(translation: translation)
+            }
+        }
+    }
+    
+    func scrunchSpring(translation: CGPoint) {
+        springSprite.size = CGSize(width: max(springSprite.frame.width - abs(translation.x), 45), height: springSprite.frame.height)
+    }
+    
+    func slidePlayer(translation: CGPoint, selectedNode: SKNode) {
+        let position = selectedNode.position
+        selectedNode.position = CGPoint(x: max(position.x - abs(translation.x), -45), y: position.y )
+    }
+    
     
 }
 
