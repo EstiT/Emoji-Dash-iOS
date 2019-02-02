@@ -18,6 +18,7 @@ class Game: SKScene {
     let bubble = SKNode()
     var springSprite = SKSpriteNode()
     let firstGame = true
+    var firstGame: Bool!
     var didSpring = false
     
     override init(size: CGSize) {
@@ -30,7 +31,12 @@ class Game: SKScene {
         addPlatform(position: CGPoint(x:75, y:40), type: PlatformType.PLATFORM_GREEN)
         addPlayer()
         
-        //TODO: check from saved data if first time
+        if !Utility().isKeyPresentInUserDefaults(key: "firstOpen") {
+            firstGame = true
+        }
+        else{
+            firstGame = UserDefaults.standard.bool(forKey: "firstOpen")
+        }
         if firstGame {
             showOnboarding()
         }
@@ -144,6 +150,8 @@ class Game: SKScene {
         bubble.addChild(rect)
         bubble.addChild(textLabel)
         addChild(bubble)
+        
+        UserDefaults.standard.set(false, forKey: "firstOpen")
     }
     
 
