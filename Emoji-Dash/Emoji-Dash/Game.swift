@@ -16,20 +16,41 @@ class Game: SKScene {
     var player = SKNode()
     var spring = SKNode()
     let bubble = SKNode()
+    var foregroundNode = SKNode()
+    
     var springSprite = SKSpriteNode()
-    let firstGame = true
+    
+    var scoreLabel = SKLabelNode()
+    
     var firstGame: Bool!
+    var gameOver: Bool = false
     var didSpring = false
+    var endLevelX: Int
+    var maxPlayerX: Int
+    let levelPlist: String
+    let levelData: NSDictionary
     
     override init(size: CGSize) {
+        // Load the level
+        levelPlist = Bundle.main.path(forResource: "Level01", ofType: "plist")!
+        levelData = NSDictionary(contentsOfFile: levelPlist)!
+        
+        endLevelX = levelData["EndX"] as! Int
+        maxPlayerX = 380
+        
+        GameState.sharedInstance.score = 0 //reset the game each time
+        gameOver = false
+        
         super.init(size: size)
         backgroundColor = UIColor.white
         physicsWorld.gravity = CGVector(dx: 0, dy: -9.0)
         physicsWorld.contactDelegate = self
         
         addSpring()
-        addPlatform(position: CGPoint(x:75, y:40), type: PlatformType.PLATFORM_GREEN)
+        foregroundNode.addChild(createPlatformAt(position: CGPoint(x:75, y:40), type: PlatformType.PLATFORM_GREEN))
+        addPlatforms()
         addPlayer()
+        addChild(foregroundNode)
         
         if !Utility().isKeyPresentInUserDefaults(key: "firstOpen") {
             firstGame = true
@@ -46,7 +67,7 @@ class Game: SKScene {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: Create Nodes
+    // MARK: Player
     
     func addPlayer(){
         let sprite = SKSpriteNode(imageNamed: "smileyEmoji")
@@ -72,7 +93,38 @@ class Game: SKScene {
         
     }
     
-    func addPlatform(position: CGPoint, type: PlatformType) {
+    // MARK: Platforms
+    
+    func addPlatforms(){
+        if let platforms = levelData["Platforms"] as? [AnyHashable : Any] {
+            if let platformPatterns = platforms["Patterns"] as? [AnyHashable : Any]{
+                if let platformPositions = platforms["Positions"] as? [Any]{
+                    
+                    for platformPosition: [AnyHashable : Any]? in platformPositions as? [[AnyHashable : Any]?] ?? [] {
+                        let patternX =  CGFloat(((platformPosition?["x"] as? NSNumber)?.floatValue)!)
+                        let patternY =  CGFloat(((platformPosition?["y"] as? NSNumber)?.floatValue)!)
+                        let pattern = platformPosition?["pattern"] as! String
+                        
+                        // Look up the pattern
+                        if let platformPattern = platformPatterns[pattern] as? NSArray{
+                            for platformPoint: [AnyHashable : Any]? in platformPattern as! [[AnyHashable : Any]?] {
+                                let x = CGFloat(((platformPoint?["x"] as? NSNumber)?.floatValue)!)
+                                let y = CGFloat(((platformPoint?["y"] as? NSNumber)?.floatValue)!)
+                                if let type = platformPoint?["type"] as? Int{
+                                    let platformNode: PlatformNode? = createPlatformAt(position: CGPoint(x: x + patternX, y: y + patternY), type: PlatformType(rawValue: type)!)
+                                    if let platformNode = platformNode {
+                                        foregroundNode.addChild(platformNode)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func createPlatformAt(position: CGPoint, type: PlatformType) -> PlatformNode{
         let node = PlatformNode()
         node.position = position
         node.name = "NODE_PLATFORM"
@@ -100,7 +152,7 @@ class Game: SKScene {
         node.physicsBody?.collisionBitMask = 0
         node.physicsBody?.allowsRotation = false
         
-        addChild(node)
+        return node
     }
     
     func addSpring(){
