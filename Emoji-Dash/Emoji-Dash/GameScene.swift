@@ -26,22 +26,15 @@ class GameScene: SKScene {
         self.label = self.childNode(withName: "//EmojiDashLabel") as? SKLabelNode
         if let label = self.label {
             label.alpha = 0.0
-            label.run(SKAction.fadeIn(withDuration: 2.0))
+            let fadeIn = SKAction.fadeIn(withDuration: 1.5)
+            label.run(fadeIn, completion: {
+                let reveal = SKTransition.flipHorizontal(withDuration: 0.6)//fade(withDuration: 0.5)
+                let game = Game(size: self.size)
+                game.scaleMode = .resizeFill
+                self.view?.presentScene(game, transition: reveal)
+                })
+            
         }
-        
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
-        }
-        
-    }
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let reveal = SKTransition.flipHorizontal(withDuration: 0.6)//fade(withDuration: 0.5)
-        let game = Game(size: self.size)
-        game.scaleMode = .resizeFill
-        self.view?.presentScene(game, transition: reveal)
         
     }
     
