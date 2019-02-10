@@ -246,13 +246,21 @@ class Game: SKScene {
             let location = touch.location(in: self)
             let node : SKNode = self.atPoint(location)
 //            print(node.name ?? "??")
-            if node.name == "player" && !didSpring{
+            if (node.name == "player" || nearPlayer(location: location)) && !didSpring{
                 let previousPosition = touch.previousLocation(in: self)
                 let translation = CGPoint(x: location.x - previousPosition.x, y: location.y - previousPosition.y)
                 slidePlayer(translation: translation, selectedNode: node)
                 scrunchSpring(translation: translation)
             }
         }
+    }
+    
+    func nearPlayer(location: CGPoint)-> Bool {
+        if (location.x <= player.position.x + 5 || location.x >= player.position.x - 5) &&
+            (location.y <= player.position.y + 5 || location.y >= player.position.y - 5){
+            return true
+        }
+        return false
     }
     
     func scrunchSpring(translation: CGPoint) {
