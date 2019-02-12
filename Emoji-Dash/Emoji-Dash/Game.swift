@@ -84,15 +84,15 @@ class Game: SKScene {
         player.physicsBody = SKPhysicsBody(circleOfRadius: sprite.size.width/2)
         player.physicsBody?.isDynamic = false
         player.physicsBody?.allowsRotation = true
-        player.physicsBody?.restitution = 1.0
+        player.physicsBody?.restitution = 0.7
         player.physicsBody?.friction = 0.0
         player.physicsBody?.angularDamping = 0.0
         player.physicsBody?.linearDamping = 0.0
         
         player.physicsBody?.usesPreciseCollisionDetection = true
         player.physicsBody?.categoryBitMask = PhysicsCategory.CollisionCategoryPlayer
-        player.physicsBody?.collisionBitMask = 0
-        player.physicsBody?.contactTestBitMask =  PhysicsCategory.CollisionCategoryPlatform
+        player.physicsBody?.collisionBitMask = PhysicsCategory.CollisionCategoryPlatform | PhysicsCategory.CollisionCategoryPoint
+        player.physicsBody?.contactTestBitMask =  PhysicsCategory.CollisionCategoryPoint | PhysicsCategory.CollisionCategoryDevil
     
         addChild(player)
         
@@ -154,7 +154,7 @@ class Game: SKScene {
         node.physicsBody = SKPhysicsBody(rectangleOf: sprite.size)
         node.physicsBody?.isDynamic = false
         node.physicsBody?.categoryBitMask = PhysicsCategory.CollisionCategoryPlatform
-        node.physicsBody?.collisionBitMask = 0
+        node.physicsBody?.collisionBitMask = PhysicsCategory.CollisionCategoryPlayer
         node.physicsBody?.allowsRotation = false
         
         return node
@@ -292,6 +292,7 @@ class Game: SKScene {
                 springSprite.run(SKAction.sequence([expand, retract]))//SKAction.sequence([expand, retract])
                 player.run(SKAction.move(to: CGPoint(x: player.position.x + 200, y: player.position.y), duration: TimeInterval(0.5)))
                 didSpring = true
+                player.physicsBody?.isDynamic = true
             }
         }
     }
@@ -373,8 +374,10 @@ class Game: SKScene {
 }
 
 struct PhysicsCategory {
-    static let CollisionCategoryPlayer   : UInt32  = 0x1 << 0  //0 single 32-bit integer, acting as a bitmask
-    static let CollisionCategoryPlatform   : UInt32 =  0x1 << 1     // 1
+    static let CollisionCategoryPlayer    : UInt32 = 0x1 << 0  //0 single 32-bit integer, acting as a bitmask
+    static let CollisionCategoryPoint     : UInt32 = 0x1 << 1  //1
+    static let CollisionCategoryPlatform  : UInt32 = 0x1 << 2  // 2
+    static let CollisionCategoryDevil     : UInt32 = 0x1 << 3  // 2
 }
 
 extension Game: SKPhysicsContactDelegate {
