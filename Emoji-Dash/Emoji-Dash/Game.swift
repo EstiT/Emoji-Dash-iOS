@@ -296,6 +296,48 @@ class Game: SKScene {
     }
     
     
+    override func update(_ currentTime: CFTimeInterval){
+        
+        if gameOver {
+            return
+        }
+        
+        //award points for travelling farther
+        if Int(player.position.x) > maxPlayerX {
+            GameState.sharedInstance.score += Int(player.position.x) - maxPlayerX
+            maxPlayerX = Int(player.position.x)
+            print("\(GameState.sharedInstance.score)")
+            scoreLabel.text = "\(GameState.sharedInstance.score)"
+        }
+        
+        if player.position.x > 200.0 {
+            foregroundNode.position = CGPoint(x: -(player.position.x - 200.0), y: 0.0)
+        }
+        
+        // Remove game objects that have passed by
+        foregroundNode.enumerateChildNodes(withName: "NODE_PLATFORM", using: { node, stop in
+            (node as? PlatformNode)?.checkNodeRemoval(playerX: self.player.position.x)
+        })
+
+        //check if the game is over
+        //finished level
+        if Int(player.position.x) > endLevelX {
+            endGame()
+        }
+        //fell
+        if Int(player.position.y) < Int((self.view?.frame.minY)!-10) { // 400 magic number screen size?
+            endGame()
+        }
+    }
+    
+    func endGame(){
+        gameOver = true
+        GameState.sharedInstance.saveState()
+        let reveal = SKTransition.fade(withDuration: 0.5)//flipHorizontal(withDuration: 0.5)
+        let endGameScene = EndGameScene(size: self.size, won: false)
+        self.view?.presentScene(endGameScene, transition: reveal)
+    }
+    
 }
 
 struct PhysicsCategory {
