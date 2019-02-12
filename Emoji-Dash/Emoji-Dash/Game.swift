@@ -345,13 +345,14 @@ class Game: SKScene {
         
         if player.position.x > 200.0 {
             foregroundNode.position = CGPoint(x: -(player.position.x - 200.0), y: 0.0)
+            spring.position = CGPoint(x: -(player.position.x - 200.0), y: spring.position.y)
         }
         
         // Remove game objects that have passed by
         foregroundNode.enumerateChildNodes(withName: "NODE_PLATFORM", using: { node, stop in
             (node as? PlatformNode)?.checkNodeRemoval(playerX: self.player.position.x)
         })
-        if self.player.position.x > spring.position.x + 300.0 {
+        if self.player.position.x > spring.position.x + 400.0 {
             spring.removeFromParent()
         }
 
