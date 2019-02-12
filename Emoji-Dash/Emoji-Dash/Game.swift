@@ -20,6 +20,8 @@ class Game: SKScene {
     var foregroundNode = SKNode()
     
     var springSprite = SKSpriteNode()
+    let 👆 = SKSpriteNode(imageNamed: "pointerEmoji")
+    let onboardingText = SKLabelNode(fontNamed: "Avenir-Heavy")
     
     var scoreLabel = SKLabelNode()
     
@@ -174,39 +176,62 @@ class Game: SKScene {
     }
     
     func showOnboarding(){
-        let textLabel = SKLabelNode(fontNamed: "TeluguSangamMN")
-        textLabel.text = "Pull back the emoji to start"
-        textLabel.position = CGPoint(x: 160, y: 260)
-        textLabel.fontColor = UIColor.black
-        textLabel.fontSize = CGFloat(17)
-        textLabel.numberOfLines = 2
-        textLabel.preferredMaxLayoutWidth = 140
         
-        let 👆 = SKSpriteNode(imageNamed: "pointerEmoji")
+        onboardingText.text = "Pull back the emoji to start"
+        onboardingText.position = CGPoint(x: 180, y: 250)
+        onboardingText.fontColor = UIColor(displayP3Red: 235/255, green: 0, blue: 72/255, alpha: 1.0)
+        onboardingText.fontSize = CGFloat(24)
+        onboardingText.numberOfLines = 2
+        onboardingText.preferredMaxLayoutWidth = 140
+        onboardingText.horizontalAlignmentMode = .center
+        onboardingText.name = "pullBack"
+        
         👆.position = CGPoint(x: 120, y: 220)
-        👆.size = CGSize(width: 35, height: 35)
-        let actionMove = SKAction.move(to: CGPoint(x: 👆.position.x - 25, y: 👆.position.y), duration: TimeInterval(0.8))
-        let wait = SKAction.wait(forDuration: 1.5)
+        👆.size = CGSize(width: 45, height: 45)
+        👆.name = "pointer"
+        let actionMove = SKAction.move(to: CGPoint(x: 👆.position.x - 30, y: 👆.position.y), duration: TimeInterval(0.8))
+        let wait = SKAction.wait(forDuration: 1.0)
         let actionMoveReset = SKAction.move(to: CGPoint(x: 👆.position.x , y: 👆.position.y), duration: TimeInterval(0.0))
-        👆.run(SKAction.repeat(SKAction.sequence([actionMove, wait, actionMoveReset]), count: 5), completion: {
-            👆.removeFromParent()
+        👆.run(SKAction.repeatForever(SKAction.sequence([actionMove, wait, actionMoveReset])), completion: {
+            return
             })
-
-        
-        let rect = SKShapeNode(rect: CGRect(x: textLabel.position.x - textLabel.frame.width/2 - 10 ,
-                                            y: textLabel.position.y - 10,
-                                            width: textLabel.frame.width+20,
-                                            height: textLabel.frame.height+20))
-        rect.strokeColor = UIColor(red:0.40, green:0.94, blue:0.84, alpha:1.0)
-        rect.glowWidth = 1.0
-//        rect.fillColor = UIColor(red:0.94, green:0.85, blue:0.40, alpha:1.0)
         
         bubble.addChild(👆)
-        bubble.addChild(rect)
-        bubble.addChild(textLabel)
+        bubble.addChild(onboardingText)
         addChild(bubble)
+    }
+    
+    func nextOnboarding(){
+        let fadeOutAction = SKAction.fadeOut(withDuration: 0.8)
+        let fadeInAction = SKAction.fadeIn(withDuration: 0.8)
         
-        UserDefaults.standard.set(false, forKey: "firstOpen")
+        if bubble.childNode(withName: "pullBack") != nil{ //hide and show next
+            self.onboardingText.run(fadeOutAction)
+            self.👆.run(fadeOutAction)
+            self.bubble.run(fadeOutAction, completion: {
+                self.onboardingText.text = "Tap to jump"
+                self.onboardingText.position = CGPoint(x: 280, y: 250)
+                self.onboardingText.name = "tap"
+                
+                self.👆.removeAllActions()
+                self.👆.position = CGPoint(x: 240, y: 210)
+                let pulseUp = SKAction.scale(to: 1.2, duration: 1.0)
+                let pulseDown = SKAction.scale(to: 0.8, duration: 1.0)
+                self.👆.run(SKAction.repeatForever(SKAction.sequence([pulseUp, pulseDown])))
+                
+                self.onboardingText.run(fadeInAction)
+                self.👆.run(fadeInAction)
+                self.bubble.run(fadeInAction)
+                })
+        }
+        else if bubble.childNode(withName: "tap") != nil{ //remove
+            UserDefaults.standard.set(false, forKey: "firstOpen")
+            self.onboardingText.run(fadeOutAction)
+            self.👆.run(fadeOutAction)
+            self.bubble.run(fadeOutAction, completion: {
+                self.bubble.removeFromParent()
+            })
+        }
     }
     
     func addHud(){
@@ -251,7 +276,8 @@ class Game: SKScene {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?){
-        bubble.removeFromParent()
+        nextOnboarding()
+        
         for touch in touches {
             let location = touch.location(in: self)
             let node : SKNode = self.atPoint(location)
