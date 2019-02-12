@@ -19,7 +19,7 @@ class GameObjectNode: SKNode {
     // Called every frame to see if the game object should be removed from the scene
     func checkNodeRemoval(playerX: CGFloat){
         if playerX > self.position.x + 300.0 {
-            removeFromParent();
+            removeFromParent()
         }
     }
     

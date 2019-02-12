@@ -178,11 +178,11 @@ class Game: SKScene {
     func showOnboarding(){
         
         onboardingText.text = "Pull back the emoji to start"
-        onboardingText.position = CGPoint(x: 180, y: 250)
+        onboardingText.position = CGPoint(x: 220, y: 240)
         onboardingText.fontColor = UIColor(displayP3Red: 235/255, green: 0, blue: 72/255, alpha: 1.0)
         onboardingText.fontSize = CGFloat(24)
         onboardingText.numberOfLines = 2
-        onboardingText.preferredMaxLayoutWidth = 140
+        onboardingText.preferredMaxLayoutWidth = 200
         onboardingText.horizontalAlignmentMode = .center
         onboardingText.name = "pullBack"
         
@@ -351,6 +351,9 @@ class Game: SKScene {
         foregroundNode.enumerateChildNodes(withName: "NODE_PLATFORM", using: { node, stop in
             (node as? PlatformNode)?.checkNodeRemoval(playerX: self.player.position.x)
         })
+        if self.player.position.x > spring.position.x + 300.0 {
+            spring.removeFromParent()
+        }
 
         //check if the game is over
         //finished level
