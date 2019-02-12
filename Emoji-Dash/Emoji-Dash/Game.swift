@@ -211,22 +211,28 @@ class Game: SKScene {
     
     func addHud(){
         // Score
-        scoreLabel = SKLabelNode(fontNamed: "ChalkboardSE-Bold")
-        scoreLabel.fontSize = 30
-        scoreLabel.zPosition = 10
-        scoreLabel.fontColor = SKColor.black
-        scoreLabel.position = CGPoint(x: 600, y: 328)
-        scoreLabel.text = "0"
-        hudNode.addChild(scoreLabel)
+  
         
         let scoreText = SKLabelNode(fontNamed: "ChalkboardSE-Bold")
-        scoreText.fontSize = 30
+        scoreText.fontSize = 28
         scoreText.zPosition = 10
         scoreText.fontColor = SKColor.black
-        scoreText.position = CGPoint(x: scoreLabel.frame.minX - 25, y: 330)
+        scoreText.position = CGPoint(x: 588, y: 330)
         scoreText.horizontalAlignmentMode = .right
         scoreText.text = "Score: "
         hudNode.addChild(scoreText)
+        
+        scoreLabel = SKLabelNode(fontNamed: "ChalkboardSE-Bold")
+        scoreLabel.fontSize = 28
+        scoreLabel.zPosition = 10
+        scoreLabel.fontColor = SKColor.black
+        print("\(size.width)  \(size.height)")
+        print("\(self.frame.maxX)  \(self.frame.maxY)")
+        print("\(self.view?.frame.maxX ?? CGFloat(0.0))  \(self.view?.frame.maxY ?? CGFloat(0.0)) ")
+        scoreLabel.position = CGPoint(x: scoreText.frame.maxX + 8, y: 328)
+        scoreLabel.horizontalAlignmentMode = .left
+        scoreLabel.text = "0"
+        hudNode.addChild(scoreLabel)
         
         addChild(hudNode)
     }
