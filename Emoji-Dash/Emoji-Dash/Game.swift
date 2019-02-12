@@ -36,7 +36,7 @@ class Game: SKScene {
         levelData = NSDictionary(contentsOfFile: levelPlist)!
         
         endLevelX = levelData["EndX"] as! Int
-        maxPlayerX = 380
+        maxPlayerX = 150
         
         GameState.sharedInstance.score = 0 //reset the game each time
         gameOver = false
@@ -47,7 +47,7 @@ class Game: SKScene {
         physicsWorld.contactDelegate = self
         
         addSpring()
-        foregroundNode.addChild(createPlatformAt(position: CGPoint(x:75, y:40), type: PlatformType.PLATFORM_GREEN))
+        foregroundNode.addChild(createPlatformAt(position: CGPoint(x:85, y:110), type: PlatformType.PLATFORM_GREEN))
         addPlatforms()
         addPlayer()
         addChild(foregroundNode)
@@ -73,9 +73,10 @@ class Game: SKScene {
         let sprite = SKSpriteNode(imageNamed: "smileyEmoji")
         sprite.size = CGSize(width: 45, height: 45)
         sprite.name = "player"
+        sprite.zPosition = 3
         
         player.addChild(sprite)
-        player.position = CGPoint(x:85, y:70)
+        player.position = CGPoint(x:85, y:140)
         player.physicsBody = SKPhysicsBody(circleOfRadius: sprite.size.width/2)
         player.physicsBody?.isDynamic = false
         player.physicsBody?.allowsRotation = true
@@ -143,7 +144,7 @@ class Game: SKScene {
         else {  //type == PlatformType.PLATFORM_TYPING {
             sprite = SKSpriteNode(imageNamed: "typing")
         }
-        
+        sprite.name = "platform"
         node.addChild(sprite)
         
         node.physicsBody = SKPhysicsBody(rectangleOf: sprite.size)
@@ -163,7 +164,7 @@ class Game: SKScene {
         springSprite.zPosition = -1
         
         spring.addChild(springSprite)
-        spring.position = CGPoint(x:-1, y:55)
+        spring.position = CGPoint(x:-1, y:125)
         spring.physicsBody = SKPhysicsBody(rectangleOf: springSprite.size)
         spring.physicsBody?.isDynamic = false
         
@@ -173,14 +174,14 @@ class Game: SKScene {
     func showOnboarding(){
         let textLabel = SKLabelNode(fontNamed: "TeluguSangamMN")
         textLabel.text = "Pull back the emoji to start"
-        textLabel.position = CGPoint(x: 160, y: 160)
+        textLabel.position = CGPoint(x: 160, y: 260)
         textLabel.fontColor = UIColor.black
         textLabel.fontSize = CGFloat(17)
         textLabel.numberOfLines = 2
         textLabel.preferredMaxLayoutWidth = 140
         
         let 👆 = SKSpriteNode(imageNamed: "pointerEmoji")
-        👆.position = CGPoint(x: 120, y: 120)
+        👆.position = CGPoint(x: 120, y: 220)
         👆.size = CGSize(width: 35, height: 35)
         let actionMove = SKAction.move(to: CGPoint(x: 👆.position.x - 25, y: 👆.position.y), duration: TimeInterval(0.8))
         let wait = SKAction.wait(forDuration: 1.5)
