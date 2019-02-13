@@ -15,6 +15,7 @@ class Game: SKScene {
     
     var player = SKNode()
     var spring = SKNode()
+    var launchArrow = SKNode()
     let bubble = SKNode()
     var hudNode = SKNode()
     var foregroundNode = SKNode()
@@ -50,11 +51,12 @@ class Game: SKScene {
         physicsWorld.contactDelegate = self
         
         addSpring()
-        foregroundNode.addChild(createPlatformAt(position: CGPoint(x:85, y:110), type: PlatformType.PLATFORM_GREEN))
         addPlatforms()
         addPlayer()
         addChild(foregroundNode)
         addHud()
+        addLaunchArrow()
+        foregroundNode.addChild(createPlatformAt(position: CGPoint(x:105, y:120), type: PlatformType.PLATFORM_GREEN))
         
         if !Utility().isKeyPresentInUserDefaults(key: "firstOpen") {
             firstGame = true
@@ -80,7 +82,7 @@ class Game: SKScene {
         sprite.zPosition = 3
         
         player.addChild(sprite)
-        player.position = CGPoint(x:85, y:140)
+        player.position = CGPoint(x:113, y:150)
         player.physicsBody = SKPhysicsBody(circleOfRadius: sprite.size.width/2)
         player.physicsBody?.isDynamic = false
         player.physicsBody?.allowsRotation = true
@@ -116,7 +118,7 @@ class Game: SKScene {
                                 let x = CGFloat(((platformPoint?["x"] as? NSNumber)?.floatValue)!)
                                 let y = CGFloat(((platformPoint?["y"] as? NSNumber)?.floatValue)!)
                                 if let type = platformPoint?["type"] as? Int{
-                                    let platformNode: PlatformNode? = createPlatformAt(position: CGPoint(x: x + patternX, y: y + patternY), type: PlatformType(rawValue: type)!)
+                                    let platformNode: PlatformNode? = createPlatformAt(position: CGPoint(x: x + patternX, y: y + patternY), type: PlatformType(rawValue: type+2)!)//TODO random platform colours, remove +2
                                     if let platformNode = platformNode {
                                         foregroundNode.addChild(platformNode)
                                     }
@@ -168,11 +170,24 @@ class Game: SKScene {
         springSprite.zPosition = -1
         
         spring.addChild(springSprite)
-        spring.position = CGPoint(x:-1, y:125)
+        spring.position = CGPoint(x:-1, y:135)
         spring.physicsBody = SKPhysicsBody(rectangleOf: springSprite.size)
         spring.physicsBody?.isDynamic = false
         
         addChild(spring)
+    }
+    
+    func addLaunchArrow(){
+        let launchSprite = SKSpriteNode(imageNamed: "send")
+        launchSprite.size = CGSize(width: 45, height: 45)
+
+        launchArrow.addChild(launchSprite)
+        launchArrow.position = CGPoint(x:80, y:150)
+        launchArrow.physicsBody = SKPhysicsBody(circleOfRadius: launchSprite.size.width/2)
+        launchArrow.physicsBody?.isDynamic = false
+        launchArrow.name = "send"
+        
+        addChild(launchArrow)
     }
     
     func showOnboarding(){
@@ -289,8 +304,9 @@ class Game: SKScene {
                 print("x: \(player.position.x)")
                 let expand = SKAction.resize(toWidth: 89.0, duration: TimeInterval(0.3))
                 let retract = SKAction.resize(toWidth: 85.0, duration: TimeInterval(0.3))
-                springSprite.run(SKAction.sequence([expand, retract]))//SKAction.sequence([expand, retract])
-                player.run(SKAction.move(to: CGPoint(x: player.position.x + 200, y: player.position.y), duration: TimeInterval(0.5)))
+                springSprite.run(SKAction.sequence([expand, retract]))
+                launchArrow.run(SKAction.sequence([expand, retract]))
+                player.run(SKAction.move(to: CGPoint(x: player.position.x + 200, y: player.position.y), duration: TimeInterval(0.5))) //TODO: remove
                 didSpring = true
                 player.physicsBody?.isDynamic = true
             }
@@ -305,7 +321,8 @@ class Game: SKScene {
             if (node.name == "player" || nearPlayer(location: location)) && !didSpring{
                 let previousPosition = touch.previousLocation(in: self)
                 let translation = CGPoint(x: location.x - previousPosition.x, y: location.y - previousPosition.y)
-                slidePlayer(translation: translation, selectedNode: node)
+                slide(translation: translation, selectedNode: node)
+                slide(translation: translation, selectedNode: launchArrow)
                 scrunchSpring(translation: translation)
             }
         }
@@ -323,9 +340,15 @@ class Game: SKScene {
         springSprite.size = CGSize(width: max(springSprite.frame.width - abs(translation.x), 45), height: springSprite.frame.height)
     }
     
-    func slidePlayer(translation: CGPoint, selectedNode: SKNode) {
+    func slide(translation: CGPoint, selectedNode: SKNode) {
         let position = selectedNode.position
-        selectedNode.position = CGPoint(x: max(position.x - abs(translation.x), -45), y: position.y )
+        print("\(String(describing: selectedNode.name)) position: \(position)")
+        if selectedNode.name == "player" {
+            selectedNode.position = CGPoint(x: max(position.x - abs(translation.x), -45), y: position.y )
+        }
+        else if selectedNode.name == "send" {
+            selectedNode.position = CGPoint(x: max(position.x - abs(translation.x), 33), y: position.y )
+        }
     }
     
     
@@ -346,6 +369,7 @@ class Game: SKScene {
         if player.position.x > 200.0 {
             foregroundNode.position = CGPoint(x: -(player.position.x - 200.0), y: 0.0)
             spring.position = CGPoint(x: -(player.position.x - 200.0), y: spring.position.y)
+            launchArrow.position = CGPoint(x: -(player.position.x - 200.0), y: launchArrow.position.y)
         }
         
         // Remove game objects that have passed by
