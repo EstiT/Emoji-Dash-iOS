@@ -135,23 +135,28 @@ class Game: SKScene {
         node.name = "NODE_PLATFORM"
         node.platformType = type
         
-        let sprite : SKSpriteNode
+        let platformTexture : SKTexture
         if type == PlatformType.PLATFORM_BLUE {
-            sprite = SKSpriteNode(imageNamed: "blueBubble")
+            platformTexture = SKTexture(imageNamed: "blueBubble")
         }
         else if type == PlatformType.PLATFORM_GREY {
-            sprite = SKSpriteNode(imageNamed: "greyBubble")
+            platformTexture = SKTexture(imageNamed: "greyBubble")
         }
         else if type == PlatformType.PLATFORM_GREEN {
-            sprite = SKSpriteNode(imageNamed: "greenBubble")
+            platformTexture = SKTexture(imageNamed: "greenBubble")
         }
         else {  //type == PlatformType.PLATFORM_TYPING {
-            sprite = SKSpriteNode(imageNamed: "typing")
+            platformTexture = SKTexture(imageNamed: "typing")
+            //TODO: set size based on platform
         }
+        let sprite = SKSpriteNode(texture: platformTexture)
         sprite.name = "platform"
         node.addChild(sprite)
         
-        node.physicsBody = SKPhysicsBody(rectangleOf: sprite.size)
+
+        node.physicsBody = SKPhysicsBody(texture: platformTexture,
+                                         size: CGSize(width: sprite.size.width,
+                                                      height: sprite.size.height))
         node.physicsBody?.isDynamic = false
         node.physicsBody?.categoryBitMask = PhysicsCategory.CollisionCategoryPlatform
         node.physicsBody?.collisionBitMask = PhysicsCategory.CollisionCategoryPlayer
