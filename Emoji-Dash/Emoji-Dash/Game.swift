@@ -289,9 +289,12 @@ class Game: SKScene {
                 let expand = SKAction.resize(toWidth: 89.0, duration: TimeInterval(0.3))
                 let retract = SKAction.resize(toWidth: 85.0, duration: TimeInterval(0.3))
                 springSprite.run(SKAction.sequence([expand, retract]))//SKAction.sequence([expand, retract])
-                player.run(SKAction.move(to: CGPoint(x: player.position.x + 200, y: player.position.y), duration: TimeInterval(0.5)))
                 didSpring = true
                 player.physicsBody?.isDynamic = true
+                if !didSpring{
+                    player.physicsBody?.applyImpulse(CGVector(dx: 20.0, dy: 0.0))
+                }
+                didSpring = true
             }
         }
     }
