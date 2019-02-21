@@ -33,6 +33,7 @@ class Game: SKScene {
     let levelPlist: String
     let levelData: NSDictionary
     
+    let displaySize: CGRect = UIScreen.main.bounds
     override init(size: CGSize) {
         // Load the level
         levelPlist = Bundle.main.path(forResource: "Level01", ofType: "plist")!
@@ -95,6 +96,7 @@ class Game: SKScene {
         player.physicsBody?.contactTestBitMask =  PhysicsCategory.CollisionCategoryPoint | PhysicsCategory.CollisionCategoryDevil
     
         addChild(player)
+        foregroundNode.addChild(player)
         
     }
     
@@ -168,7 +170,7 @@ class Game: SKScene {
         springSprite.zPosition = -1
         
         spring.addChild(springSprite)
-        spring.position = CGPoint(x:-1, y:125)
+        spring.position = CGPoint(x:-10, y:125)
         spring.physicsBody = SKPhysicsBody(rectangleOf: springSprite.size)
         spring.physicsBody?.isDynamic = false
         
@@ -176,9 +178,8 @@ class Game: SKScene {
     }
     
     func showOnboarding(){
-        
         onboardingText.text = "Pull back the emoji to start"
-        onboardingText.position = CGPoint(x: 220, y: 240)
+        onboardingText.position = CGPoint(x: 170, y: displaySize.height - 100)
         onboardingText.fontColor = UIColor(displayP3Red: 235/255, green: 0, blue: 72/255, alpha: 1.0)
         onboardingText.fontSize = CGFloat(24)
         onboardingText.numberOfLines = 2
@@ -186,9 +187,10 @@ class Game: SKScene {
         onboardingText.horizontalAlignmentMode = .center
         onboardingText.name = "pullBack"
         
-        👆.position = CGPoint(x: 120, y: 220)
+        👆.position = CGPoint(x: player.frame.maxX, y: player.frame.minY - player.frame.size.height - 45)
         👆.size = CGSize(width: 45, height: 45)
         👆.name = "pointer"
+        👆.zPosition = 4
         let actionMove = SKAction.move(to: CGPoint(x: 👆.position.x - 30, y: 👆.position.y), duration: TimeInterval(0.8))
         let wait = SKAction.wait(forDuration: 1.0)
         let actionMoveReset = SKAction.move(to: CGPoint(x: 👆.position.x , y: 👆.position.y), duration: TimeInterval(0.0))
@@ -235,7 +237,6 @@ class Game: SKScene {
     }
     
     func addHud(){
-        let displaySize: CGRect = UIScreen.main.bounds
         // Score
         let scoreText = SKLabelNode(fontNamed: "ChalkboardSE-Bold")
         scoreText.fontSize = 28
