@@ -8,12 +8,14 @@
 
 import Foundation
 import SpriteKit
+import GameplayKit
 
 class EndGameScene: SKScene{
     
     init(size: CGSize, won:Bool) {
         super.init(size: size)
-
+        
+        backgroundColor = SKColor(red: 37/255, green: 67/255, blue: 71/255, alpha: 1.0)
         
         // Score
         let lblScore = SKLabelNode(fontNamed: "ChalkboardSE-Bold")
@@ -27,7 +29,7 @@ class EndGameScene: SKScene{
         // High Score
         let lblHighScore = SKLabelNode(fontNamed: "ChalkboardSE-Bold")
         lblHighScore.fontSize = 30
-        lblHighScore.fontColor = SKColor.cyan
+        lblHighScore.fontColor = SKColor.white
         lblHighScore.position = CGPoint(x: 160, y: 150)
         lblHighScore.horizontalAlignmentMode = .center
         lblHighScore.text = "High Score: \(GameState.sharedInstance.highScore)"
