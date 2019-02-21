@@ -151,7 +151,7 @@ class Game: SKScene {
         sprite.name = "platform"
         node.addChild(sprite)
         
-        node.physicsBody = SKPhysicsBody(rectangleOf: sprite.size)
+        node.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: sprite.size.width, height: sprite.size.height-6))
         node.physicsBody?.isDynamic = false
         node.physicsBody?.categoryBitMask = PhysicsCategory.CollisionCategoryPlatform
         node.physicsBody?.collisionBitMask = PhysicsCategory.CollisionCategoryPlayer
