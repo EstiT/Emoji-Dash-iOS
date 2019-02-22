@@ -134,7 +134,7 @@ class Game: SKScene {
     func createPlatformAt(position: CGPoint, type: PlatformType) -> PlatformNode{
         let node = PlatformNode()
         node.position = position
-        node.name = "NODE_PLATFORM"
+        node.name = "platform"
         node.platformType = type
         
         let sprite : SKSpriteNode
@@ -160,6 +160,93 @@ class Game: SKScene {
         node.physicsBody?.allowsRotation = false
         
         return node
+    }
+    
+    // MARK: ⭐️&💎
+    
+    func addPointNodes(){
+        if let points = levelData["Stars"] as? [AnyHashable : Any] {
+            if let pointPatterns = points["Patterns"] as? [AnyHashable : Any]{
+                if let positions = points["Positions"] as? [Any]{
+                    
+                    for platformPosition: [AnyHashable : Any]? in positions as? [[AnyHashable : Any]?] ?? [] {
+                        let patternX =  CGFloat(((platformPosition?["x"] as? NSNumber)?.floatValue)!)
+                        let patternY =  CGFloat(((platformPosition?["y"] as? NSNumber)?.floatValue)!)
+                        let pattern = platformPosition?["pattern"] as! String
+                        
+                        // Look up the pattern
+                        if let pointPattern = pointPatterns[pattern] as? NSArray{
+                            for point: [AnyHashable : Any]? in pointPattern as! [[AnyHashable : Any]?] {
+                                let x = CGFloat(((point?["x"] as? NSNumber)?.floatValue)!)
+                                let y = CGFloat(((point?["y"] as? NSNumber)?.floatValue)!)
+                                if let type = point?["type"] as? Int{
+                                    let pointNode: PointNode? = createPointAt(position: CGPoint(x: x + patternX, y: y + patternY), type: PointNodeType(rawValue: type)!)
+                                    if let pointNode = pointNode {
+                                        foregroundNode.addChild(pointNode)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func createPointAt(position: CGPoint, type: PointNodeType) -> PointNode{
+        let node = PointNode()
+        node.position = position
+        node.name = "point"
+        node.pointType = type
+        let path: CGPath!
+        let sprite : SKSpriteNode
+        if type == PointNodeType.STAR {
+            sprite = SKSpriteNode(imageNamed: "star")
+            path = makeStarPath()
+        }
+        else {// type == PointNodeType.PLATFORM_GREY
+            sprite = SKSpriteNode(imageNamed: "diamond")
+            path = makeDiamondPath()
+        }
+        sprite.name = "point"
+        sprite.size = CGSize(width: 35, height: 35)
+        node.addChild(sprite)
+
+        node.physicsBody = SKPhysicsBody(polygonFrom: path)
+        node.physicsBody?.isDynamic = false
+        node.physicsBody?.categoryBitMask = PhysicsCategory.CollisionCategoryPoint
+        node.physicsBody?.allowsRotation = false
+        
+        return node
+    }
+    
+    func makeDiamondPath() -> CGPath{
+        let path = UIBezierPath()
+        path.move(to: CGPoint(x: 0, y: -12))
+        path.addLine(to: CGPoint(x: -13, y: 6))
+        path.addLine(to: CGPoint(x: -13, y: 8))
+        path.addLine(to: CGPoint(x: -4, y: 14))
+        path.addLine(to: CGPoint(x: 6, y: 14))
+        path.addLine(to: CGPoint(x: 15, y: 8))
+        path.addLine(to: CGPoint(x: 15, y: 6))
+        path.close()
+        return path.cgPath
+    }
+    
+    func makeStarPath() -> CGPath{
+        let path = UIBezierPath()
+        path.move(to: CGPoint(x: 0, y: -10))
+        path.addLine(to: CGPoint(x: -12, y: -16))
+        path.addLine(to: CGPoint(x: -7, y: -4))
+        path.addLine(to: CGPoint(x: -16, y: 4))
+        path.addLine(to: CGPoint(x: -5, y: 4))
+        path.addLine(to: CGPoint(x: 0, y: 16))
+        path.addLine(to: CGPoint(x: 5, y: 4))
+        path.addLine(to: CGPoint(x: 16, y: 4))
+        path.addLine(to: CGPoint(x: 7, y: -4))
+        path.addLine(to: CGPoint(x: 12, y: -16))
+        path.close()
+        return path.cgPath
     }
     
     func addSpring(){
