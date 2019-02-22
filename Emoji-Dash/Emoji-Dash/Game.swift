@@ -40,7 +40,7 @@ class Game: SKScene {
         levelData = NSDictionary(contentsOfFile: levelPlist)!
         
         endLevelX = levelData["EndX"] as! Int
-        maxPlayerX = 150
+        maxPlayerX = 85 //needs to be at least 85
         
         GameState.sharedInstance.score = 0 //reset the game each time
         gameOver = false
@@ -53,6 +53,7 @@ class Game: SKScene {
         addSpring()
         foregroundNode.addChild(createPlatformAt(position: CGPoint(x:85, y:110), type: PlatformType.PLATFORM_GREEN))
         addPlatforms()
+        addPointNodes()
         addPlayer()
         addChild(foregroundNode)
         addHud()
@@ -95,7 +96,6 @@ class Game: SKScene {
         player.physicsBody?.collisionBitMask = PhysicsCategory.CollisionCategoryPlatform | PhysicsCategory.CollisionCategoryPoint
         player.physicsBody?.contactTestBitMask =  PhysicsCategory.CollisionCategoryPoint | PhysicsCategory.CollisionCategoryDevil
     
-        addChild(player)
         foregroundNode.addChild(player)
         
     }
@@ -153,7 +153,7 @@ class Game: SKScene {
         sprite.name = "platform"
         node.addChild(sprite)
         
-        node.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: sprite.size.width, height: sprite.size.height-6))
+        node.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: sprite.size.width+3, height: sprite.size.height-6))
         node.physicsBody?.isDynamic = false
         node.physicsBody?.categoryBitMask = PhysicsCategory.CollisionCategoryPlatform
         node.physicsBody?.collisionBitMask = PhysicsCategory.CollisionCategoryPlayer
@@ -196,19 +196,21 @@ class Game: SKScene {
     func createPointAt(position: CGPoint, type: PointNodeType) -> PointNode{
         let node = PointNode()
         node.position = position
-        node.name = "point"
+//        node.name = "point"
         node.pointType = type
         let path: CGPath!
         let sprite : SKSpriteNode
         if type == PointNodeType.STAR {
             sprite = SKSpriteNode(imageNamed: "star")
+            node.name = "star"
             path = makeStarPath()
         }
-        else {// type == PointNodeType.PLATFORM_GREY
+        else {// type == PointNodeType.DIAMOND
             sprite = SKSpriteNode(imageNamed: "diamond")
+            node.name = "diamond"
             path = makeDiamondPath()
         }
-        sprite.name = "point"
+        
         sprite.size = CGSize(width: 35, height: 35)
         node.addChild(sprite)
 
