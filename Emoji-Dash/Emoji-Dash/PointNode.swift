@@ -20,8 +20,10 @@ class PointNode: GameObjectNode {
     
     override func collisionWithPlayer(player: SKNode) -> Bool {
         print("collided with point")
-
-        return false
+        print("\(String(describing: self.name))")
+        player.physicsBody?.velocity = CGVector(dx: (player.physicsBody?.velocity.dx)!+200 , dy: (player.physicsBody?.velocity.dy)!)
+        removeFromParent()
+        return true
     }
     
     

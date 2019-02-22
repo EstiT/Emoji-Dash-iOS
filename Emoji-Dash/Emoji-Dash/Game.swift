@@ -217,7 +217,8 @@ class Game: SKScene {
         node.physicsBody = SKPhysicsBody(polygonFrom: path)
         node.physicsBody?.isDynamic = false
         node.physicsBody?.categoryBitMask = PhysicsCategory.CollisionCategoryPoint
-        node.physicsBody?.allowsRotation = false
+        node.physicsBody?.collisionBitMask = 0//PhysicsCategory.CollisionCategoryPoint
+        node.physicsBody?.contactTestBitMask = PhysicsCategory.CollisionCategoryPlayer
         
         return node
     }
@@ -431,10 +432,10 @@ class Game: SKScene {
         if Int(player.position.x) > maxPlayerX {
             GameState.sharedInstance.score += Int(player.position.x) - maxPlayerX
             maxPlayerX = Int(player.position.x)
-            print("\(GameState.sharedInstance.score)")
             scoreLabel.text = "\(GameState.sharedInstance.score)"
         }
         
+        // Calculate player y offset and hide nodes
         if player.position.x > 200.0 {
             foregroundNode.position = CGPoint(x: -(player.position.x - 200.0), y: 0.0)
             spring.position = CGPoint(x: -(player.position.x - 200.0), y: spring.position.y)
@@ -446,6 +447,11 @@ class Game: SKScene {
         })
         if self.player.position.x > spring.position.x + 400.0 {
             spring.removeFromParent()
+        }
+        
+        //ensure player never slows down
+        if player.physicsBody!.velocity.dx < 200 {
+            player.physicsBody!.velocity = CGVector(dx: 200, dy: player.physicsBody!.velocity.dy)
         }
 
         //check if the game is over
@@ -470,10 +476,10 @@ class Game: SKScene {
 }
 
 struct PhysicsCategory {
-    static let CollisionCategoryPlayer    : UInt32 = 0x1 << 0  //0 single 32-bit integer, acting as a bitmask
-    static let CollisionCategoryPoint     : UInt32 = 0x1 << 1  //1
-    static let CollisionCategoryPlatform  : UInt32 = 0x1 << 2  // 2
-    static let CollisionCategoryDevil     : UInt32 = 0x1 << 3  // 2
+    static let CollisionCategoryPlayer    : UInt32 = 0x1 << 0  //00000001
+    static let CollisionCategoryPoint     : UInt32 = 0x1 << 1  //00000010
+    static let CollisionCategoryPlatform  : UInt32 = 0x1 << 2  //00000100
+    static let CollisionCategoryDevil     : UInt32 = 0x1 << 3  //00001000
 }
 
 extension Game: SKPhysicsContactDelegate {
