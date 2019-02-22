@@ -39,7 +39,7 @@ class EndGameScene: SKScene{
         let lblTryAgain = SKLabelNode(fontNamed: "ChalkboardSE-Bold")
         lblTryAgain.fontSize = 30
         lblTryAgain.fontColor = SKColor.white
-        lblTryAgain.position = CGPoint(x: displaySize.width/2, y: lblHighScore.frame.minY-lblHighScore.frame.height-5)
+        lblTryAgain.position = CGPoint(x: displaySize.width/2, y: 50)
         lblTryAgain.horizontalAlignmentMode = .center
         lblTryAgain.text = "Tap To Try Again"
         addChild(lblTryAgain)
