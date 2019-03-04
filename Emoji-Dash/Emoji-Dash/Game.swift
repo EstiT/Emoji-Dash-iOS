@@ -269,7 +269,7 @@ class Game: SKScene {
     
     func showOnboarding(){
         onboardingText.text = "Pull back the emoji to start"
-        onboardingText.position = CGPoint(x: 170, y: displaySize.height - 100)
+        onboardingText.position = CGPoint(x: 150, y: displaySize.height - 120)
         onboardingText.fontColor = UIColor(displayP3Red: 235/255, green: 0, blue: 72/255, alpha: 1.0)
         onboardingText.fontSize = CGFloat(24)
         onboardingText.numberOfLines = 2
@@ -277,7 +277,7 @@ class Game: SKScene {
         onboardingText.horizontalAlignmentMode = .center
         onboardingText.name = "pullBack"
         
-        👆.position = CGPoint(x: player.frame.maxX, y: player.frame.minY - player.frame.size.height - 45)
+        👆.position = CGPoint(x: player.frame.maxX, y: player.frame.minY - player.frame.size.height - 55)
         👆.size = CGSize(width: 45, height: 45)
         👆.name = "pointer"
         👆.zPosition = 4
@@ -294,19 +294,19 @@ class Game: SKScene {
     }
     
     func nextOnboarding(){
-        let fadeOutAction = SKAction.fadeOut(withDuration: 0.8)
-        let fadeInAction = SKAction.fadeIn(withDuration: 0.8)
+        let fadeOutAction = SKAction.fadeOut(withDuration: 0.6)
+        let fadeInAction = SKAction.fadeIn(withDuration: 0.6)
         
         if bubble.childNode(withName: "pullBack") != nil{ //hide and show next
             self.onboardingText.run(fadeOutAction)
             self.👆.run(fadeOutAction)
             self.bubble.run(fadeOutAction, completion: {
                 self.onboardingText.text = "Tap to jump"
-                self.onboardingText.position = CGPoint(x: 280, y: 250)
+                self.onboardingText.position = CGPoint(x: 380, y: 250)
                 self.onboardingText.name = "tap"
                 
                 self.👆.removeAllActions()
-                self.👆.position = CGPoint(x: 240, y: 210)
+                self.👆.position = CGPoint(x: 380, y: 210)
                 let pulseUp = SKAction.scale(to: 1.2, duration: 1.0)
                 let pulseDown = SKAction.scale(to: 0.8, duration: 1.0)
                 self.👆.run(SKAction.repeatForever(SKAction.sequence([pulseUp, pulseDown])))
@@ -318,6 +318,7 @@ class Game: SKScene {
         }
         else if bubble.childNode(withName: "tap") != nil{ //remove
             UserDefaults.standard.set(false, forKey: "firstOpen")
+            firstGame = false
             self.onboardingText.run(fadeOutAction)
             self.👆.run(fadeOutAction)
             self.bubble.run(fadeOutAction, completion: {
@@ -358,34 +359,31 @@ class Game: SKScene {
         for touch in touches {
             let location = touch.location(in: self)
             let node : SKNode = self.atPoint(location)
-//            print(node.name ?? "??")
-            if node.name == "spring" {
-                print("Hello")
+            if didSpring {
+                player.physicsBody?.applyImpulse(CGVector(dx: 0.0, dy: 30.0))
             }
         }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?){
-        nextOnboarding()
-        
-        for touch in touches {
-            let location = touch.location(in: self)
-            let node : SKNode = self.atPoint(location)
-            print("ended")
-            print(node.name ?? "??")
-            print(node)
-            if node.name == "player" || node.name == "spring" {
-                print("width: \(springSprite.frame.width)")
-                print("x: \(player.position.x)")
-                let expand = SKAction.resize(toWidth: 89.0, duration: TimeInterval(0.3))
-                let retract = SKAction.resize(toWidth: 85.0, duration: TimeInterval(0.3))
-                springSprite.run(SKAction.sequence([expand, retract]))//SKAction.sequence([expand, retract])
-                didSpring = true
-                player.physicsBody?.isDynamic = true
-                if !didSpring{
-                    player.physicsBody?.applyImpulse(CGVector(dx: 20.0, dy: 0.0))
+        if firstGame{
+            nextOnboarding()
+        }
+        else{
+            for touch in touches {
+                let location = touch.location(in: self)
+                let node : SKNode = self.atPoint(location)
+                if node.name == "player" || node.name == "spring" {
+                    let expand = SKAction.resize(toWidth: 89.0, duration: TimeInterval(0.3))
+                    let retract = SKAction.resize(toWidth: 85.0, duration: TimeInterval(0.3))
+                    springSprite.run(SKAction.sequence([expand, retract]))
+                    player.physicsBody = SKPhysicsBody(circleOfRadius: (self.player.childNode(withName: "player") as! SKSpriteNode).size.width/2, center: CGPoint(x: 0, y: 0.0))
+                    player.physicsBody?.isDynamic = true
+                    if !didSpring{
+                        player.physicsBody?.applyImpulse(CGVector(dx: 40.0, dy: 0.0))
+                    }
+                    didSpring = true
                 }
-                didSpring = true
             }
         }
     }
