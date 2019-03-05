@@ -359,8 +359,13 @@ class Game: SKScene {
         for touch in touches {
             let location = touch.location(in: self)
             let node : SKNode = self.atPoint(location)
-            if didSpring {
-                player.physicsBody?.applyImpulse(CGVector(dx: 0.0, dy: 30.0))
+            if gameOver{
+                endGame()
+            }
+            else if didSpring{
+                 if (player.physicsBody?.velocity.dy)! == CGFloat(0) { //on platform, prevent double jump
+                    player.physicsBody?.applyImpulse(CGVector(dx: 0.0, dy: 50.0))
+                }
             }
         }
     }
@@ -455,20 +460,31 @@ class Game: SKScene {
         //check if the game is over
         //finished level
         if Int(player.position.x) > endLevelX {
+            gameOver = true
             endGame()
         }
         //fell
-        if Int(player.position.y) < Int((self.view?.frame.minY)!-10) { // 400 magic number screen size?
-            endGame()
+        if Int(player.position.y) <= Int((self.view?.frame.minY)!) + 22 {
+            killEmoji()
+            gameOver = true
         }
     }
     
     func endGame(){
-        gameOver = true
         GameState.sharedInstance.saveState()
         let reveal = SKTransition.fade(withDuration: 0.5)//flipHorizontal(withDuration: 0.5)
         let endGameScene = EndGameScene(size: self.size, won: false)
         self.view?.presentScene(endGameScene, transition: reveal)
+    }
+    
+    func killEmoji(){
+        player.removeAllChildren()
+        let sprite = SKSpriteNode(imageNamed: "dizzyEmoji")
+        sprite.size = CGSize(width: 45, height: 45)
+        sprite.name = "player"
+        player.physicsBody?.isDynamic = false
+        player.addChild(sprite)
+        
     }
     
 }
