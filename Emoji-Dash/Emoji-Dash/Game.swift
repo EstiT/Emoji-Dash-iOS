@@ -342,9 +342,6 @@ class Game: SKScene {
         scoreLabel.fontSize = 28
         scoreLabel.zPosition = 10
         scoreLabel.fontColor = SKColor.black
-        print("\(size.width)  \(size.height)")
-        print("\(self.frame.maxX)  \(self.frame.maxY)")
-        print("\(self.view?.frame.maxX ?? CGFloat(0.0))  \(self.view?.frame.maxY ?? CGFloat(0.0)) ")
         scoreLabel.position = CGPoint(x: scoreText.frame.maxX + 8, y: displaySize.height-40)
         scoreLabel.horizontalAlignmentMode = .left
         scoreLabel.text = "0"
@@ -356,18 +353,12 @@ class Game: SKScene {
     // MARK: Handle Touches
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for touch in touches {
-            let location = touch.location(in: self)
-            let node : SKNode = self.atPoint(location)
             if gameOver{
                 endGame()
             }
             else if didSpring{
-                 if (player.physicsBody?.velocity.dy)! == CGFloat(0) { //on platform, prevent double jump
-                    player.physicsBody?.applyImpulse(CGVector(dx: 0.0, dy: 50.0))
-                }
+                player.physicsBody?.applyImpulse(CGVector(dx: 0.0, dy: 50.0)) //TODO 
             }
-        }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?){
@@ -397,8 +388,7 @@ class Game: SKScene {
         for touch in touches {
             let location = touch.location(in: self)
             let node : SKNode = self.atPoint(location)
-//            print(node.name ?? "??")
-            if (node.name == "player" || nearPlayer(location: location)) && !didSpring{
+            if (node.name == "player" || nearPlayer(location: location)) && !didSpring && node.name != "platform" {
                 let previousPosition = touch.previousLocation(in: self)
                 let translation = CGPoint(x: location.x - previousPosition.x, y: location.y - previousPosition.y)
                 slidePlayer(translation: translation, selectedNode: node)
@@ -419,14 +409,13 @@ class Game: SKScene {
         springSprite.size = CGSize(width: max(springSprite.frame.width - abs(translation.x), 45), height: springSprite.frame.height)
     }
     
-    func slidePlayer(translation: CGPoint, selectedNode: SKNode) {
+    func slidePlayer(translation: CGPoint, selectedNode: SKNode) {//TODO? slides sknode but not physics body
         let position = selectedNode.position
         selectedNode.position = CGPoint(x: max(position.x - abs(translation.x), -45), y: position.y )
     }
     
     
     override func update(_ currentTime: CFTimeInterval){
-        
         if gameOver {
             return
         }
@@ -466,7 +455,7 @@ class Game: SKScene {
         //fell
         if Int(player.position.y) <= Int((self.view?.frame.minY)!) + 22 {
             killEmoji()
-            gameOver = true
+            
         }
     }
     
@@ -478,6 +467,7 @@ class Game: SKScene {
     }
     
     func killEmoji(){
+        gameOver = true
         player.removeAllChildren()
         let sprite = SKSpriteNode(imageNamed: "dizzyEmoji")
         sprite.size = CGSize(width: 45, height: 45)
@@ -485,6 +475,8 @@ class Game: SKScene {
         player.physicsBody?.isDynamic = false
         player.addChild(sprite)
         
+//        let angel = SKNode() TODO
+//        let angelSprite = SKSpriteNode(imageNamed: <#T##String#>)
     }
     
 }

@@ -19,9 +19,8 @@ class PointNode: GameObjectNode {
     var pointType: PointNodeType?
     
     override func collisionWithPlayer(player: SKNode) -> Bool {
-        print("collided with point")
-        print("\(String(describing: self.name))")
-        player.physicsBody?.velocity = CGVector(dx: (player.physicsBody?.velocity.dx)!+200 , dy: (player.physicsBody?.velocity.dy)!)
+//        TODO - apply impulse?, add points
+
         removeFromParent()
         return true
     }

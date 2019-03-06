@@ -21,9 +21,6 @@ class PlatformNode: GameObjectNode {
     var platformType: PlatformType?
     
     override func collisionWithPlayer(player: SKNode) -> Bool {
-        if (player.physicsBody?.velocity.dy)! < CGFloat(0) { //falling
-            player.physicsBody?.velocity = CGVector(dx: (player.physicsBody?.velocity.dx)!, dy: 50) //boost
-        }
         return false
     }
     
