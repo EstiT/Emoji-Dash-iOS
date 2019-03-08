@@ -153,10 +153,11 @@ class Game: SKScene {
         sprite.name = "platform"
         node.addChild(sprite)
         
-        node.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: sprite.size.width+3, height: sprite.size.height-6))
+        node.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: sprite.size.width, height: sprite.size.height-6))
         node.physicsBody?.isDynamic = false
         node.physicsBody?.categoryBitMask = PhysicsCategory.CollisionCategoryPlatform
         node.physicsBody?.collisionBitMask = PhysicsCategory.CollisionCategoryPlayer
+        node.physicsBody?.contactTestBitMask =  PhysicsCategory.CollisionCategoryPlayer
         node.physicsBody?.allowsRotation = false
         
         return node
@@ -353,10 +354,7 @@ class Game: SKScene {
     // MARK: Handle Touches
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-            if gameOver{
-                endGame()
-            }
-            else if didSpring{
+            if didSpring{
                 player.physicsBody?.applyImpulse(CGVector(dx: 0.0, dy: 50.0)) //TODO 
             }
     }
@@ -461,9 +459,12 @@ class Game: SKScene {
     
     func endGame(){
         GameState.sharedInstance.saveState()
-        let reveal = SKTransition.fade(withDuration: 0.5)//flipHorizontal(withDuration: 0.5)
+        let wait = SKAction.wait(forDuration: 0.3)
+        let reveal = SKTransition.fade(withDuration: 0.8)//flipHorizontal(withDuration: 0.5)
         let endGameScene = EndGameScene(size: self.size, won: false)
-        self.view?.presentScene(endGameScene, transition: reveal)
+        run(wait, completion: {
+            self.view?.presentScene(endGameScene, transition: reveal)
+        })
     }
     
     func killEmoji(){
@@ -475,6 +476,7 @@ class Game: SKScene {
         player.physicsBody?.isDynamic = false
         player.addChild(sprite)
         
+        endGame()
 //        let angel = SKNode() TODO
 //        let angelSprite = SKSpriteNode(imageNamed: <#T##String#>)
     }
@@ -499,7 +501,6 @@ extension Game: SKPhysicsContactDelegate {
         
         // Update the HUD if necessary
         if (updateHUD) {
-            print(String(GameState.sharedInstance.score))
             scoreLabel.text = String(GameState.sharedInstance.score)
         }
         
