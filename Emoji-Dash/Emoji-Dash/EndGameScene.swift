@@ -19,9 +19,9 @@ class EndGameScene: SKScene{
         
         // Score
         let lblScore = SKLabelNode(fontNamed: "ChalkboardSE-Bold")
-        lblScore.fontSize = 60
+        lblScore.fontSize = 55
         lblScore.fontColor = SKColor.white
-        lblScore.position = CGPoint(x: displaySize.width/2, y: displaySize.height-110)
+        lblScore.position = CGPoint(x: displaySize.maxX/2, y: displaySize.maxY-110)
         lblScore.horizontalAlignmentMode = .center
         lblScore.text = "Score: \(GameState.sharedInstance.score)"
         addChild(lblScore)
@@ -30,7 +30,7 @@ class EndGameScene: SKScene{
         let lblHighScore = SKLabelNode(fontNamed: "ChalkboardSE-Bold")
         lblHighScore.fontSize = 30
         lblHighScore.fontColor = SKColor.white
-        lblHighScore.position = CGPoint(x: displaySize.width/2, y: lblScore.frame.minY-lblScore.frame.height-5)
+        lblHighScore.position = CGPoint(x: displaySize.maxX/2, y: lblScore.frame.minY-lblScore.frame.height-5)
         lblHighScore.horizontalAlignmentMode = .center
         lblHighScore.text = "High Score: \(GameState.sharedInstance.highScore)"
         addChild(lblHighScore)
@@ -39,7 +39,7 @@ class EndGameScene: SKScene{
         let lblTryAgain = SKLabelNode(fontNamed: "ChalkboardSE-Bold")
         lblTryAgain.fontSize = 30
         lblTryAgain.fontColor = SKColor.white
-        lblTryAgain.position = CGPoint(x: displaySize.width/2, y: 50)
+        lblTryAgain.position = CGPoint(x: displaySize.maxX/2, y: 50)
         lblTryAgain.horizontalAlignmentMode = .center
         lblTryAgain.text = "Tap To Try Again"
         addChild(lblTryAgain)
