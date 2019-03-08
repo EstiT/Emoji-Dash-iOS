@@ -34,6 +34,8 @@ class GameState: NSObject{
     func saveState(){
         let defaults = UserDefaults.standard
         
+        defaults.set(false, forKey: "firstOpen")
+        
         highScore = max(score, highScore)
         // Store in user defaults
         defaults.set(NSNumber(value: highScore), forKey: "highScore")

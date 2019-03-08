@@ -111,13 +111,13 @@ class Game: SKScene {
                         let patternX =  CGFloat(((platformPosition?["x"] as? NSNumber)?.floatValue)!)
                         let patternY =  CGFloat(((platformPosition?["y"] as? NSNumber)?.floatValue)!)
                         let pattern = platformPosition?["pattern"] as! String
-                        
-                        // Look up the pattern
-                        if let platformPattern = platformPatterns[pattern] as? NSArray{
-                            for platformPoint: [AnyHashable : Any]? in platformPattern as! [[AnyHashable : Any]?] {
-                                let x = CGFloat(((platformPoint?["x"] as? NSNumber)?.floatValue)!)
-                                let y = CGFloat(((platformPoint?["y"] as? NSNumber)?.floatValue)!)
-                                if let type = platformPoint?["type"] as? Int{
+                        if let type = platformPosition?["type"] as? Int{
+                            // Look up the pattern
+                            if let platformPattern = platformPatterns[pattern] as? NSArray{
+                                for platformPoint: [AnyHashable : Any]? in platformPattern as! [[AnyHashable : Any]?] {
+                                    let x = CGFloat(((platformPoint?["x"] as? NSNumber)?.floatValue)!)
+                                    let y = CGFloat(((platformPoint?["y"] as? NSNumber)?.floatValue)!)
+                                    
                                     let platformNode: PlatformNode? = createPlatformAt(position: CGPoint(x: x + patternX, y: y + patternY), type: PlatformType(rawValue: type)!)
                                     if let platformNode = platformNode {
                                         foregroundNode.addChild(platformNode)
@@ -318,7 +318,7 @@ class Game: SKScene {
                 })
         }
         else if bubble.childNode(withName: "tap") != nil{ //remove
-            UserDefaults.standard.set(false, forKey: "firstOpen")
+            GameState.sharedInstance.saveState()
             firstGame = false
             self.onboardingText.run(fadeOutAction)
             self.👆.run(fadeOutAction)
