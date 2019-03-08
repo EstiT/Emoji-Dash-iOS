@@ -217,8 +217,6 @@
 					<integer>0</integer>
 					<key>y</key>
 					<integer>0</integer>
-					<key>type</key>
-					<integer>0</integer>
 				</dict>
 			</array>
 			<key>Double</key>
@@ -228,15 +226,11 @@
 					<integer>0</integer>
 					<key>y</key>
 					<integer>0</integer>
-					<key>type</key>
-					<integer>0</integer>
 				</dict>
 				<dict>
 					<key>x</key>
 					<integer>100</integer>
 					<key>y</key>
-					<integer>0</integer>
-					<key>type</key>
 					<integer>0</integer>
 				</dict>
 			</array>
@@ -247,16 +241,12 @@
 					<integer>0</integer>
 					<key>y</key>
 					<integer>0</integer>
-					<key>type</key>
-					<integer>1</integer>
 				</dict>
 				<dict>
 					<key>x</key>
 					<integer>110</integer>
 					<key>y</key>
 					<integer>0</integer>
-					<key>type</key>
-					<integer>1</integer>
 				</dict>
 			</array>
 			<key>Triple</key>
@@ -266,23 +256,17 @@
 					<integer>0</integer>
 					<key>y</key>
 					<integer>0</integer>
-					<key>type</key>
-					<integer>0</integer>
 				</dict>
 				<dict>
 					<key>x</key>
 					<integer>100</integer>
 					<key>y</key>
 					<integer>0</integer>
-					<key>type</key>
-					<integer>0</integer>
 				</dict>
 				<dict>
 					<key>x</key>
 					<integer>200</integer>
 					<key>y</key>
-					<integer>0</integer>
-					<key>type</key>
 					<integer>0</integer>
 				</dict>
 			</array>
@@ -296,6 +280,8 @@
 				<integer>195</integer>
 				<key>y</key>
 				<integer>90</integer>
+				<key>type</key>
+				<integer>1</integer>
 			</dict>
 			<dict>
 				<key>pattern</key>
@@ -304,6 +290,8 @@
 				<integer>520</integer>
 				<key>y</key>
 				<integer>30</integer>
+				<key>type</key>
+				<integer>0</integer>
 			</dict>
 			<dict>
 				<key>pattern</key>
@@ -312,6 +300,8 @@
 				<integer>750</integer>
 				<key>y</key>
 				<integer>100</integer>
+				<key>type</key>
+				<integer>2</integer>
 			</dict>
 			<dict>
 				<key>pattern</key>
@@ -320,6 +310,8 @@
 				<real>1000</real>
 				<key>y</key>
 				<integer>160</integer>
+				<key>type</key>
+				<integer>2</integer>
 			</dict>
 			<dict>
 				<key>pattern</key>
@@ -328,6 +320,8 @@
 				<real>1250</real>
 				<key>y</key>
 				<integer>200</integer>
+				<key>type</key>
+				<integer>0</integer>
 			</dict>
 			<dict>
 				<key>pattern</key>
@@ -336,6 +330,8 @@
 				<real>1500</real>
 				<key>y</key>
 				<integer>135</integer>
+				<key>type</key>
+				<integer>1</integer>
 			</dict>
 			<dict>
 				<key>pattern</key>
@@ -344,6 +340,8 @@
 				<integer>1900</integer>
 				<key>y</key>
 				<integer>230</integer>
+				<key>type</key>
+				<integer>2</integer>
 			</dict>
 			<dict>
 				<key>pattern</key>
@@ -352,6 +350,8 @@
 				<integer>2250</integer>
 				<key>y</key>
 				<real>110</real>
+				<key>type</key>
+				<integer>0</integer>
 			</dict>
 			<dict>
 				<key>pattern</key>
@@ -360,6 +360,8 @@
 				<integer>2650</integer>
 				<key>y</key>
 				<integer>200</integer>
+				<key>type</key>
+				<integer>3</integer>
 			</dict>
 			<dict>
 				<key>pattern</key>
@@ -368,6 +370,8 @@
 				<integer>2750</integer>
 				<key>y</key>
 				<real>200</real>
+				<key>type</key>
+				<integer>0</integer>
 			</dict>
 			<dict>
 				<key>pattern</key>
@@ -376,6 +380,8 @@
 				<integer>2900</integer>
 				<key>y</key>
 				<integer>300</integer>
+				<key>type</key>
+				<integer>2</integer>
 			</dict>
 			<dict>
 				<key>pattern</key>
@@ -384,14 +390,28 @@
 				<integer>270</integer>
 				<key>y</key>
 				<real>3160</real>
+				<key>type</key>
+				<integer>2</integer>
 			</dict>
 			<dict>
 				<key>pattern</key>
-				<string>DoubleBreak</string>
+				<string>Single</string>
 				<key>x</key>
 				<integer>270</integer>
 				<key>y</key>
 				<real>4400</real>
+				<key>type</key>
+				<integer>3</integer>
+			</dict>
+			<dict>
+				<key>pattern</key>
+				<string>Single</string>
+				<key>x</key>
+				<integer>270</integer>
+				<key>y</key>
+				<real>4400</real>
+				<key>type</key>
+				<integer>3</integer>
 			</dict>
 			<dict>
 				<key>pattern</key>
@@ -400,6 +420,8 @@
 				<integer>220</integer>
 				<key>y</key>
 				<real>4480</real>
+				<key>type</key>
+				<integer>1</integer>
 			</dict>
 			<dict>
 				<key>pattern</key>
@@ -408,6 +430,8 @@
 				<integer>170</integer>
 				<key>y</key>
 				<real>4560</real>
+				<key>type</key>
+				<integer>2</integer>
 			</dict>
 			<dict>
 				<key>pattern</key>
@@ -416,6 +440,8 @@
 				<integer>120</integer>
 				<key>y</key>
 				<real>4640</real>
+				<key>type</key>
+				<integer>3</integer>
 			</dict>
 			<dict>
 				<key>pattern</key>
@@ -424,6 +450,8 @@
 				<integer>20</integer>
 				<key>y</key>
 				<real>4720</real>
+				<key>type</key>
+				<integer>2</integer>
 			</dict>
 			<dict>
 				<key>pattern</key>
@@ -432,6 +460,8 @@
 				<integer>70</integer>
 				<key>y</key>
 				<real>4800</real>
+				<key>type</key>
+				<integer>0</integer>
 			</dict>
 			<dict>
 				<key>pattern</key>
@@ -440,6 +470,8 @@
 				<integer>120</integer>
 				<key>y</key>
 				<real>4880</real>
+				<key>type</key>
+				<integer>1</integer>
 			</dict>
 			<dict>
 				<key>pattern</key>
@@ -448,6 +480,8 @@
 				<integer>170</integer>
 				<key>y</key>
 				<integer>4960</integer>
+				<key>type</key>
+				<integer>2</integer>
 			</dict>
 		</array>
 	</dict>
