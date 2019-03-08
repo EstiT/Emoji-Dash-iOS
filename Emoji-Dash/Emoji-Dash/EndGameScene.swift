@@ -44,6 +44,10 @@ class EndGameScene: SKScene{
         lblTryAgain.text = "Tap To Try Again"
         addChild(lblTryAgain)
         
+        let pulseUp = SKAction.scale(to: 1.05, duration: 0.8)
+        let pulseDown = SKAction.scale(to: 0.95, duration: 0.8)
+        lblTryAgain.run(SKAction.repeatForever(SKAction.sequence([pulseUp, pulseDown])))
+        
     }
     
     required init(coder aDecoder: NSCoder) {
