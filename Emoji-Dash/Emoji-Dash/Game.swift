@@ -28,6 +28,7 @@ class Game: SKScene {
     var firstGame: Bool!
     var gameOver: Bool = false
     var didSpring = false
+    var inAir = false
     var endLevelX: Int
     var maxPlayerX: Int
     let levelPlist: String
@@ -354,9 +355,10 @@ class Game: SKScene {
     // MARK: Handle Touches
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-            if didSpring{
-                player.physicsBody?.applyImpulse(CGVector(dx: 0.0, dy: 50.0)) //TODO 
-            }
+        if !inAir{ //&& didSpring{
+            player.physicsBody?.applyImpulse(CGVector(dx: 0.0, dy: 45.0)) //TODO
+            inAir = true
+        }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?){
@@ -496,7 +498,9 @@ extension Game: SKPhysicsContactDelegate {
         var updateHUD = true
         
         let other = ((contact.bodyA.node != player) ? contact.bodyA.node : contact.bodyB.node) as! GameObjectNode
-        
+        if other.name == "platform"{
+            inAir = false
+        }
         updateHUD = other.collisionWithPlayer(player: player)
         
         // Update the HUD if necessary
