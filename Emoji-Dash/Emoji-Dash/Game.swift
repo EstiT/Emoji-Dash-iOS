@@ -451,8 +451,8 @@ class Game: SKScene {
         }
 
         //check if the game is over
-        //finished level
-        if Int(player.position.x) > endLevelX {
+        //reached end of level
+        if Int(player.position.x) >= endLevelX {
             gameOver = true
             endGame()
         }
