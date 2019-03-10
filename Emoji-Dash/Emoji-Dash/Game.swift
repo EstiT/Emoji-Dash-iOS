@@ -426,7 +426,7 @@ class Game: SKScene {
         
         //award points for travelling farther
         if Int(player.position.x) > maxPlayerX {
-            GameState.sharedInstance.score += Int(player.position.x) - maxPlayerX
+            GameState.sharedInstance.score += Int((Int(player.position.x) - maxPlayerX)/3)
             maxPlayerX = Int(player.position.x)
             scoreLabel.text = "\(GameState.sharedInstance.score)"
         }
@@ -446,8 +446,8 @@ class Game: SKScene {
         }
         
         //ensure player never slows down
-        if player.physicsBody!.velocity.dx < 120 && didSpring {
-            player.physicsBody!.velocity = CGVector(dx: 120, dy: player.physicsBody!.velocity.dy)
+        if player.physicsBody!.velocity.dx < 200 && didSpring {
+            player.physicsBody!.velocity = CGVector(dx: 200, dy: player.physicsBody!.velocity.dy)
         }
 
         //check if the game is over
