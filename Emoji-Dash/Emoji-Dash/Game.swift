@@ -411,7 +411,7 @@ class Game: SKScene {
     
     func slidePlayer(translation: CGPoint, selectedNode: SKNode) {
         let position = selectedNode.position
-        selectedNode.position = CGPoint(x: position.x - abs(translation.x), y: position.y )
+        selectedNode.position = CGPoint(x: position.x - translation.x, y: position.y )
     }
     
     func rotateForever(){
