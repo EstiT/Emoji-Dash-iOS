@@ -335,7 +335,7 @@ class Game: SKScene {
         scoreText.fontSize = 28
         scoreText.zPosition = 10
         scoreText.fontColor = SKColor.black
-        scoreText.position = CGPoint(x: displaySize.width-80, y: displaySize.height-40) // self.view.fram.maxY
+        scoreText.position = CGPoint(x: displaySize.width-80, y: displaySize.height-40)
         scoreText.horizontalAlignmentMode = .right
         scoreText.text = "Score: "
         hudNode.addChild(scoreText)
@@ -355,8 +355,8 @@ class Game: SKScene {
     // MARK: Handle Touches
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if !inAir && didSpring{
-            player.physicsBody?.applyImpulse(CGVector(dx: 0.0, dy: 45.0)) //TODO force based on pull back distance
+        if !inAir && didSpring{ //tap to jump
+            player.physicsBody?.applyImpulse(CGVector(dx: 0.0, dy: 45.0))
             inAir = true
         }
     }
@@ -375,7 +375,7 @@ class Game: SKScene {
                     springSprite.run(SKAction.sequence([expand, retract]))
                     player.physicsBody?.isDynamic = true
                     if !didSpring{
-                        player.physicsBody?.applyImpulse(CGVector(dx: 26.0, dy: 0.0))
+                        player.physicsBody?.applyImpulse(CGVector(dx: 26.0, dy: 0.0)) //TODO force based on pull back distance
                         didSpring = true
                         rotateForever()
                     }
@@ -385,14 +385,16 @@ class Game: SKScene {
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for touch in touches {
-            let location = touch.location(in: self)
-            let node : SKNode = self.atPoint(location)
-            if (node.name == "player" || nearPlayer(location: location)) && !didSpring && node.name != "platform" {
-                let previousPosition = touch.previousLocation(in: self)
-                let translation = CGPoint(x: location.x - previousPosition.x, y: location.y - previousPosition.y)
-                slidePlayer(translation: translation)
-                scrunchSpring(translation: translation)
+        if !firstGame{
+            for touch in touches {
+                let location = touch.location(in: self)
+                let node : SKNode = self.atPoint(location)
+                if (node.name == "player" || nearPlayer(location: location)) && !didSpring && node.name != "platform" {
+                    let previousPosition = touch.previousLocation(in: self)
+                    let translation = CGPoint(x: location.x - previousPosition.x, y: location.y - previousPosition.y)
+                    slidePlayer(translation: translation)
+                    scrunchSpring(translation: translation)
+                }
             }
         }
     }
@@ -426,7 +428,7 @@ class Game: SKScene {
         
         //award points for travelling farther
         if Int(player.position.x) > maxPlayerX {
-            GameState.sharedInstance.score += Int((Int(player.position.x) - maxPlayerX)/3)
+            GameState.sharedInstance.score += Int((Int(player.position.x) - maxPlayerX)/5)
             maxPlayerX = Int(player.position.x)
             scoreLabel.text = "\(GameState.sharedInstance.score)"
         }
@@ -446,8 +448,8 @@ class Game: SKScene {
         }
         
         //ensure player never slows down
-        if player.physicsBody!.velocity.dx < 200 && didSpring {
-            player.physicsBody!.velocity = CGVector(dx: 200, dy: player.physicsBody!.velocity.dy)
+        if player.physicsBody!.velocity.dx < 330 && didSpring {
+            player.physicsBody!.velocity = CGVector(dx: 330, dy: player.physicsBody!.velocity.dy)
         }
 
         //check if the game is over

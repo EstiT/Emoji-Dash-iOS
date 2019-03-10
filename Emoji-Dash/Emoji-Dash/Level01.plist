@@ -8,6 +8,17 @@
 	<dict>
 		<key>Patterns</key>
 		<dict>
+			<key>Diamond</key>
+			<array>
+				<dict>
+					<key>x</key>
+					<integer>0</integer>
+					<key>y</key>
+					<integer>0</integer>
+					<key>type</key>
+					<integer>1</integer>
+				</dict>
+			</array>
 			<key>Cross</key>
 			<array>
 				<dict>
@@ -222,17 +233,41 @@
 			</dict>
 			<dict>
 				<key>pattern</key>
-				<string>DoubleHLine</string>
+				<string>Diamond</string>
 				<key>x</key>
-				<real>6165</real>
+				<real>6170</real>
 				<key>y</key>
 				<integer>230</integer>
 			</dict>
 			<dict>
 				<key>pattern</key>
-				<string>DoubleHLine</string>
+				<string>Diamond</string>
 				<key>x</key>
-				<real>6280</real>
+				<real>6210</real>
+				<key>y</key>
+				<integer>230</integer>
+			</dict>
+			<dict>
+				<key>pattern</key>
+				<string>Diamond</string>
+				<key>x</key>
+				<real>6250</real>
+				<key>y</key>
+				<integer>230</integer>
+			</dict>
+			<dict>
+				<key>pattern</key>
+				<string>Diamond</string>
+				<key>x</key>
+				<real>6290</real>
+				<key>y</key>
+				<integer>230</integer>
+			</dict>
+			<dict>
+				<key>pattern</key>
+				<string>Diamond</string>
+				<key>x</key>
+				<real>6330</real>
 				<key>y</key>
 				<integer>230</integer>
 			</dict>
@@ -509,7 +544,7 @@
 				<key>pattern</key>
 				<string>DoubleBreak</string>
 				<key>x</key>
-				<real>5750</real>
+				<real>5765</real>
 				<key>y</key>
 				<integer>60</integer>
 				<key>type</key>
