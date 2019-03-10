@@ -514,7 +514,6 @@ class Game: SKScene {
         //fell
         if Int(player.position.y) <= Int((self.view?.frame.minY)!) + 22 {
             killEmoji()
-            
         }
     }
     
@@ -607,6 +606,9 @@ extension Game: SKPhysicsContactDelegate {
             }
             else if other.name == "star"{
                 GameState.sharedInstance.score += 10
+            }
+            else if other.name == "devil"{
+                killEmoji()
             }
             updateHUD = other.collisionWithPlayer(player: player)
         }
