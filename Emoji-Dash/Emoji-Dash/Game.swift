@@ -454,7 +454,10 @@ class Game: SKScene {
         //reached end of level
         if Int(player.position.x) >= endLevelX {
             gameOver = true
-            endGame()
+            //stop emoji from moving
+            player.physicsBody?.isDynamic = false
+            player.removeAllActions()
+            fireworks() //celebrate winning
         }
         //fell
         if Int(player.position.y) <= Int((self.view?.frame.minY)!) + 22 {
@@ -486,6 +489,22 @@ class Game: SKScene {
         endGame()
 //        let angel = SKNode() TODO
 //        let angelSprite = SKSpriteNode(imageNamed: <#T##String#>)
+    }
+    
+    func fireworks(){
+            run(SKAction.wait(forDuration: 0.2), completion: {
+                for i in 1...5 {
+                    if let emitter = SKEmitterNode(fileNamed: "Firework") {
+                        emitter.position = CGPoint(x: CGFloat(i*100), y: self.displaySize.maxY/CGFloat(i))
+                        emitter.zPosition = 100
+                        print(emitter.position)
+                        self.addChild(emitter)
+                    }
+                }
+                self.run(SKAction.wait(forDuration: 0.35), completion: {
+                    self.endGame()
+                })
+            })
     }
     
 }

@@ -26,6 +26,7 @@
 		22983EF22200F69700D6B2D7 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22983EF12200F69700D6B2D7 /* Utility.swift */; };
 		22B81FFC2206461900B4B57C /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B81FFB2206461900B4B57C /* GameState.swift */; };
 		22CD2CED221F791800692BA5 /* PointNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CD2CEC221F791800692BA5 /* PointNode.swift */; };
+		22E66D772234B6EF0081FE8F /* Firework.sks in Resources */ = {isa = PBXBuildFile; fileRef = 22E66D762234B6EF0081FE8F /* Firework.sks */; };
 		9B0F17E561C9E29340D9A8E6 /* Pods_Emoji_Dash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B19955DF4A19BA7DE02589A8 /* Pods_Emoji_Dash.framework */; };
 		EE2533497096DAD05B972660 /* Pods_Emoji_DashTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2274151621FD66CB00F8BAE2 /* Pods_Emoji_DashTests.framework */; };
 /* End PBXBuildFile section */
@@ -64,6 +65,7 @@
 		22983EF12200F69700D6B2D7 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		22B81FFB2206461900B4B57C /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		22CD2CEC221F791800692BA5 /* PointNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointNode.swift; sourceTree = "<group>"; };
+		22E66D762234B6EF0081FE8F /* Firework.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Firework.sks; sourceTree = "<group>"; };
 		22F75CA621F995BB0072B097 /* Emoji-Dash-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Emoji-Dash-Bridging-Header.h"; sourceTree = "<group>"; };
 		5006B531AC1CDBE01BCC0061 /* Pods-Emoji-DashTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Emoji-DashTests.debug.xcconfig"; path = "Target Support Files/Pods-Emoji-DashTests/Pods-Emoji-DashTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B19955DF4A19BA7DE02589A8 /* Pods_Emoji_Dash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Emoji_Dash.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -146,6 +148,7 @@
 				22B81FFB2206461900B4B57C /* GameState.swift */,
 				228135FA2211ED6800516BFF /* EndGameScene.swift */,
 				22CD2CEC221F791800692BA5 /* PointNode.swift */,
+				22E66D762234B6EF0081FE8F /* Firework.sks */,
 			);
 			path = "Emoji-Dash";
 			sourceTree = "<group>";
@@ -259,6 +262,7 @@
 				2261D0C521F964CD004C2989 /* GameScene.sks in Resources */,
 				2232722E223222B60053501B /* Level01.plist in Resources */,
 				2261D0D021F964CE004C2989 /* Assets.xcassets in Resources */,
+				22E66D772234B6EF0081FE8F /* Firework.sks in Resources */,
 				2261D0C721F964CD004C2989 /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
