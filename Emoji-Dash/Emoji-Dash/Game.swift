@@ -85,16 +85,16 @@ class Game: SKScene {
         player.addChild(sprite)
         player.position = CGPoint(x:85, y:140)
         player.physicsBody = SKPhysicsBody(circleOfRadius: sprite.size.width/2)
-        player.physicsBody?.isDynamic = false
-        player.physicsBody?.allowsRotation = true
-        player.physicsBody?.restitution = 0.7
+        player.physicsBody?.isDynamic = true
+        player.physicsBody?.allowsRotation = true //TODO doesnt work
+        player.physicsBody?.restitution = 0.2
         player.physicsBody?.friction = 0.0
         player.physicsBody?.angularDamping = 0.0
         player.physicsBody?.linearDamping = 0.0
         
         player.physicsBody?.usesPreciseCollisionDetection = true
         player.physicsBody?.categoryBitMask = PhysicsCategory.CollisionCategoryPlayer
-        player.physicsBody?.collisionBitMask = PhysicsCategory.CollisionCategoryPlatform | PhysicsCategory.CollisionCategoryPoint
+        player.physicsBody?.collisionBitMask = PhysicsCategory.CollisionCategoryPlatform
         player.physicsBody?.contactTestBitMask =  PhysicsCategory.CollisionCategoryPoint | PhysicsCategory.CollisionCategoryDevil
     
         foregroundNode.addChild(player)
@@ -355,8 +355,8 @@ class Game: SKScene {
     // MARK: Handle Touches
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if !inAir{ //&& didSpring{
-            player.physicsBody?.applyImpulse(CGVector(dx: 0.0, dy: 45.0)) //TODO
+        if !inAir && didSpring{
+            player.physicsBody?.applyImpulse(CGVector(dx: 0.0, dy: 45.0)) //TODO force based on pull back distance
             inAir = true
         }
     }
@@ -373,12 +373,12 @@ class Game: SKScene {
                     let expand = SKAction.resize(toWidth: 89.0, duration: TimeInterval(0.3))
                     let retract = SKAction.resize(toWidth: 85.0, duration: TimeInterval(0.3))
                     springSprite.run(SKAction.sequence([expand, retract]))
-                    player.physicsBody = SKPhysicsBody(circleOfRadius: (self.player.childNode(withName: "player") as! SKSpriteNode).size.width/2, center: CGPoint(x: 0, y: 0.0))
                     player.physicsBody?.isDynamic = true
                     if !didSpring{
-                        player.physicsBody?.applyImpulse(CGVector(dx: 40.0, dy: 0.0))
+                        player.physicsBody?.applyImpulse(CGVector(dx: 26.0, dy: 0.0))
+                        didSpring = true
+                        rotateForever()
                     }
-                    didSpring = true
                 }
             }
         }
@@ -391,7 +391,7 @@ class Game: SKScene {
             if (node.name == "player" || nearPlayer(location: location)) && !didSpring && node.name != "platform" {
                 let previousPosition = touch.previousLocation(in: self)
                 let translation = CGPoint(x: location.x - previousPosition.x, y: location.y - previousPosition.y)
-                slidePlayer(translation: translation, selectedNode: node)
+                slidePlayer(translation: translation)
                 scrunchSpring(translation: translation)
             }
         }
@@ -409,11 +409,15 @@ class Game: SKScene {
         springSprite.size = CGSize(width: max(springSprite.frame.width - abs(translation.x), 45), height: springSprite.frame.height)
     }
     
-    func slidePlayer(translation: CGPoint, selectedNode: SKNode) {//TODO? slides sknode but not physics body
-        let position = selectedNode.position
-        selectedNode.position = CGPoint(x: max(position.x - abs(translation.x), -45), y: position.y )
+    func slidePlayer(translation: CGPoint) {
+        let position = player.position
+        player.position = CGPoint(x: max(position.x - abs(translation.x), -45), y: position.y )
     }
     
+    func rotateForever(){
+        let oneRevolution = SKAction.rotate(byAngle: -.pi * 2, duration: 1.0) //TODO adjust rotation speed based on player speed
+        player.run(SKAction.repeatForever(oneRevolution))
+    }
     
     override func update(_ currentTime: CFTimeInterval){
         if gameOver {
@@ -442,8 +446,8 @@ class Game: SKScene {
         }
         
         //ensure player never slows down
-        if player.physicsBody!.velocity.dx < 200 {
-            player.physicsBody!.velocity = CGVector(dx: 200, dy: player.physicsBody!.velocity.dy)
+        if player.physicsBody!.velocity.dx < 120 && didSpring {
+            player.physicsBody!.velocity = CGVector(dx: 120, dy: player.physicsBody!.velocity.dy)
         }
 
         //check if the game is over
@@ -472,6 +476,7 @@ class Game: SKScene {
     func killEmoji(){
         gameOver = true
         player.removeAllChildren()
+        player.removeAllActions()
         let sprite = SKSpriteNode(imageNamed: "dizzyEmoji")
         sprite.size = CGSize(width: 45, height: 45)
         sprite.name = "player"
@@ -497,11 +502,12 @@ extension Game: SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) { //contact delegate method implementation
         var updateHUD = true
         
-        let other = ((contact.bodyA.node != player) ? contact.bodyA.node : contact.bodyB.node) as! GameObjectNode
-        if other.name == "platform"{
-            inAir = false
+        if let other = ((contact.bodyA.node != player) ? contact.bodyA.node : contact.bodyB.node) as? GameObjectNode {
+            if other.name == "platform"{
+                inAir = false
+            }
+            updateHUD = other.collisionWithPlayer(player: player)
         }
-        updateHUD = other.collisionWithPlayer(player: player)
         
         // Update the HUD if necessary
         if (updateHUD) {
