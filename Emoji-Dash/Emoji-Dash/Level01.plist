@@ -459,7 +459,7 @@
 				<key>pattern</key>
 				<string>Single</string>
 				<key>x</key>
-				<real>4720</real>
+				<real>4730</real>
 				<key>y</key>
 				<integer>270</integer>
 				<key>type</key>
@@ -469,7 +469,7 @@
 				<key>pattern</key>
 				<string>Single</string>
 				<key>x</key>
-				<integer>4800</integer>
+				<real>4810</real>
 				<key>y</key>
 				<real>270</real>
 				<key>type</key>
@@ -479,7 +479,7 @@
 				<key>pattern</key>
 				<string>Single</string>
 				<key>x</key>
-				<real>4880</real>
+				<real>4890</real>
 				<key>y</key>
 				<real>270</real>
 				<key>type</key>
