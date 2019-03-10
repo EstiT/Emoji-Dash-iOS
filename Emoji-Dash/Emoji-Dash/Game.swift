@@ -55,7 +55,7 @@ class Game: SKScene {
         foregroundNode.addChild(createPlatformAt(position: CGPoint(x:85, y:110), type: PlatformType.PLATFORM_GREEN))
         addPlatforms()
         addPointNodes()
-        addPlayer()
+//        addPlayer()
         addChild(foregroundNode)
         addHud()
         
@@ -76,7 +76,7 @@ class Game: SKScene {
     
     // MARK: Player
     
-    func addPlayer(){
+    func addPlayer(){/*
         let sprite = SKSpriteNode(imageNamed: "smileyEmoji")
         sprite.size = CGSize(width: 45, height: 45)
         sprite.name = "player"
@@ -98,7 +98,7 @@ class Game: SKScene {
         player.physicsBody?.contactTestBitMask =  PhysicsCategory.CollisionCategoryPoint | PhysicsCategory.CollisionCategoryDevil
     
         foregroundNode.addChild(player)
-        
+        */
     }
     
     // MARK: Platforms
@@ -355,10 +355,10 @@ class Game: SKScene {
     // MARK: Handle Touches
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if !inAir && didSpring{
-            player.physicsBody?.applyImpulse(CGVector(dx: 0.0, dy: 45.0)) //TODO force based on pull back distance
-            inAir = true
-        }
+//        if !inAir && didSpring{
+//            player.physicsBody?.applyImpulse(CGVector(dx: 0.0, dy: 45.0)) //TODO force based on pull back distance
+//            inAir = true
+//        }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?){
@@ -374,11 +374,11 @@ class Game: SKScene {
                     let retract = SKAction.resize(toWidth: 85.0, duration: TimeInterval(0.3))
                     springSprite.run(SKAction.sequence([expand, retract]))
                     player.physicsBody?.isDynamic = true
-                    if !didSpring{
-                        player.physicsBody?.applyImpulse(CGVector(dx: 26.0, dy: 0.0))
-                        didSpring = true
-                        rotateForever()
-                    }
+//                    if !didSpring{
+//                        player.physicsBody?.applyImpulse(CGVector(dx: 26.0, dy: 0.0))
+//                        didSpring = true
+//                        rotateForever()
+//                    }
                 }
             }
         }
@@ -388,12 +388,12 @@ class Game: SKScene {
         for touch in touches {
             let location = touch.location(in: self)
             let node : SKNode = self.atPoint(location)
-            if (node.name == "player" || nearPlayer(location: location)) && !didSpring && node.name != "platform" {
+//            if (node.name == "player" || nearPlayer(location: location)) && !didSpring && node.name != "platform" {
                 let previousPosition = touch.previousLocation(in: self)
                 let translation = CGPoint(x: location.x - previousPosition.x, y: location.y - previousPosition.y)
-                slidePlayer(translation: translation)
+                slidePlayer(translation: translation, selectedNode: node)
                 scrunchSpring(translation: translation)
-            }
+//            }
         }
     }
     
@@ -409,9 +409,9 @@ class Game: SKScene {
         springSprite.size = CGSize(width: max(springSprite.frame.width - abs(translation.x), 45), height: springSprite.frame.height)
     }
     
-    func slidePlayer(translation: CGPoint) {
-        let position = player.position
-        player.position = CGPoint(x: max(position.x - abs(translation.x), -45), y: position.y )
+    func slidePlayer(translation: CGPoint, selectedNode: SKNode) {
+        let position = selectedNode.position
+        selectedNode.position = CGPoint(x: position.x - abs(translation.x), y: position.y )
     }
     
     func rotateForever(){
@@ -423,6 +423,8 @@ class Game: SKScene {
         if gameOver {
             return
         }
+        
+        /*
         
         //award points for travelling farther
         if Int(player.position.x) > maxPlayerX {
@@ -459,8 +461,7 @@ class Game: SKScene {
         //fell
         if Int(player.position.y) <= Int((self.view?.frame.minY)!) + 22 {
             killEmoji()
-            
-        }
+        }*/
     }
     
     func endGame(){
