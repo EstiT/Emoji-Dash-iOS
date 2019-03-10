@@ -56,6 +56,7 @@ class Game: SKScene {
         addPlatforms()
         addPointNodes()
         addPlayer()
+        addDevils()
         addChild(foregroundNode)
         addHud()
         
@@ -171,10 +172,10 @@ class Game: SKScene {
             if let pointPatterns = points["Patterns"] as? [AnyHashable : Any]{
                 if let positions = points["Positions"] as? [Any]{
                     
-                    for platformPosition: [AnyHashable : Any]? in positions as? [[AnyHashable : Any]?] ?? [] {
-                        let patternX =  CGFloat(((platformPosition?["x"] as? NSNumber)?.floatValue)!)
-                        let patternY =  CGFloat(((platformPosition?["y"] as? NSNumber)?.floatValue)!)
-                        let pattern = platformPosition?["pattern"] as! String
+                    for pointPosition: [AnyHashable : Any]? in positions as? [[AnyHashable : Any]?] ?? [] {
+                        let patternX =  CGFloat(((pointPosition?["x"] as? NSNumber)?.floatValue)!)
+                        let patternY =  CGFloat(((pointPosition?["y"] as? NSNumber)?.floatValue)!)
+                        let pattern = pointPosition?["pattern"] as! String
                         
                         // Look up the pattern
                         if let pointPattern = pointPatterns[pattern] as? NSArray{
@@ -253,6 +254,55 @@ class Game: SKScene {
         path.close()
         return path.cgPath
     }
+    
+    
+    // MARK: 😈
+    
+    func addDevils(){
+        if let devils = levelData["Devils"] as? [AnyHashable : Any] {
+            if let devilPatterns = devils["Patterns"] as? [AnyHashable : Any]{
+                if let positions = devils["Positions"] as? [Any]{
+                    
+                    for devilPosition: [AnyHashable : Any]? in positions as? [[AnyHashable : Any]?] ?? [] {
+                        let patternX =  CGFloat(((devilPosition?["x"] as? NSNumber)?.floatValue)!)
+                        let patternY =  CGFloat(((devilPosition?["y"] as? NSNumber)?.floatValue)!)
+                        let pattern = devilPosition?["pattern"] as! String
+                        
+                        // Look up the pattern
+                        if let devilPattern = devilPatterns[pattern] as? NSArray{
+                            for devil: [AnyHashable : Any]? in devilPattern as! [[AnyHashable : Any]?] {
+                                let x = CGFloat(((devil?["x"] as? NSNumber)?.floatValue)!)
+                                let y = CGFloat(((devil?["y"] as? NSNumber)?.floatValue)!)
+                                let devilNode: DevilNode? = createDevilAt(position: CGPoint(x: x + patternX, y: y + patternY))
+                                if let devilNode = devilNode {
+                                    foregroundNode.addChild(devilNode)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func createDevilAt(position: CGPoint) -> DevilNode{
+        let node = DevilNode()
+        node.position = position
+        node.name = "devil"
+        let sprite = SKSpriteNode(imageNamed: "devil")
+        sprite.size = CGSize(width: 35, height: 35)
+        
+        node.addChild(sprite)
+        
+        node.physicsBody = SKPhysicsBody(circleOfRadius: sprite.size.width/2)
+        node.physicsBody?.isDynamic = false
+        node.physicsBody?.categoryBitMask = PhysicsCategory.CollisionCategoryDevil
+        node.physicsBody?.collisionBitMask = PhysicsCategory.CollisionCategoryPlayer
+        node.physicsBody?.contactTestBitMask = PhysicsCategory.CollisionCategoryPlayer
+        
+        return node
+    }
+
     
     func addSpring(){
         springSprite = SKSpriteNode(imageNamed: "spring")

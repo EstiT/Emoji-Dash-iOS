@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2209922722358A26002242FD /* DevilNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2209922622358A26002242FD /* DevilNode.swift */; };
 		2232722E223222B60053501B /* Level01.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2232722D223222B60053501B /* Level01.plist */; };
 		2261D0C321F964CD004C2989 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2261D0C221F964CD004C2989 /* AppDelegate.swift */; };
 		2261D0C521F964CD004C2989 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2261D0C421F964CD004C2989 /* GameScene.sks */; };
@@ -42,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2209922622358A26002242FD /* DevilNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevilNode.swift; sourceTree = "<group>"; };
 		2232722D223222B60053501B /* Level01.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Level01.plist; sourceTree = "<group>"; };
 		2261D0BF21F964CD004C2989 /* Emoji-Dash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Emoji-Dash.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2261D0C221F964CD004C2989 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 				228135FA2211ED6800516BFF /* EndGameScene.swift */,
 				22CD2CEC221F791800692BA5 /* PointNode.swift */,
 				22E66D762234B6EF0081FE8F /* Firework.sks */,
+				2209922622358A26002242FD /* DevilNode.swift */,
 			);
 			path = "Emoji-Dash";
 			sourceTree = "<group>";
@@ -351,6 +354,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22CD2CED221F791800692BA5 /* PointNode.swift in Sources */,
+				2209922722358A26002242FD /* DevilNode.swift in Sources */,
 				22983EF22200F69700D6B2D7 /* Utility.swift in Sources */,
 				2274152721FE30BD00F8BAE2 /* GameObjectNode.swift in Sources */,
 				2261D0C921F964CD004C2989 /* GameScene.swift in Sources */,
