@@ -550,6 +550,12 @@ extension Game: SKPhysicsContactDelegate {
             if other.name == "platform"{
                 inAir = false
             }
+            else if other.name == "diamond"{
+                GameState.sharedInstance.score += 100
+            }
+            else if other.name == "star"{
+                GameState.sharedInstance.score += 10
+            }
             updateHUD = other.collisionWithPlayer(player: player)
         }
         
