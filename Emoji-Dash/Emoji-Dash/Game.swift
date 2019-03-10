@@ -492,19 +492,44 @@ class Game: SKScene {
     }
     
     func fireworks(){
-            run(SKAction.wait(forDuration: 0.2), completion: {
+        run(SKAction.wait(forDuration: 0.2), completion: {
+            for i in 1...5 {
+                if let emitter = SKEmitterNode(fileNamed: "Firework") {
+                    emitter.position = CGPoint(x: CGFloat(i*110), y: self.displaySize.maxY/CGFloat(i))
+                    emitter.zPosition = 100
+                    self.addChild(emitter)
+                }
+            }
+            self.run(SKAction.wait(forDuration: 0.5), completion: {
                 for i in 1...5 {
                     if let emitter = SKEmitterNode(fileNamed: "Firework") {
-                        emitter.position = CGPoint(x: CGFloat(i*100), y: self.displaySize.maxY/CGFloat(i))
+                        emitter.position = CGPoint(x: self.displaySize.maxX/CGFloat(i), y: self.displaySize.maxY/CGFloat(i))
                         emitter.zPosition = 100
-                        print(emitter.position)
                         self.addChild(emitter)
                     }
                 }
-                self.run(SKAction.wait(forDuration: 0.35), completion: {
-                    self.endGame()
+                self.run(SKAction.wait(forDuration: 0.5), completion:{
+                    if let emitter = SKEmitterNode(fileNamed: "Firework") {
+                        emitter.position = CGPoint(x: self.displaySize.midX-CGFloat(200), y: self.displaySize.midY)
+                        emitter.zPosition = 100
+                        if let emitter2 = SKEmitterNode(fileNamed: "Firework") {
+                            emitter2.position = CGPoint(x: self.displaySize.midX+CGFloat(200), y: self.displaySize.midY)
+                            emitter2.zPosition = 100
+                            if let emitter3 = SKEmitterNode(fileNamed: "Firework") {
+                                emitter3.position = CGPoint(x: self.displaySize.midX, y: self.displaySize.midY)
+                                emitter3.zPosition = 100
+                                self.addChild(emitter)
+                                self.addChild(emitter2)
+                                self.addChild(emitter3)
+                            }
+                        }
+                    }
+                    self.run(SKAction.wait(forDuration: 0.55), completion: {
+                        self.endGame()
+                    })
                 })
             })
+        })
     }
     
 }
