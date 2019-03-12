@@ -9,9 +9,6 @@
 import Foundation
 
 class Utility {
-    func degreesToRadians(degrees: CGFloat) -> CGFloat {
-        return degrees * CGFloat(Double.pi) / 180
-    }
     
     func isKeyPresentInUserDefaults(key: String) -> Bool {
         return UserDefaults.standard.object(forKey: key) != nil

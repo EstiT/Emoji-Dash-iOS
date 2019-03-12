@@ -17,9 +17,7 @@
 		2261D0CE21F964CD004C2989 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2261D0CC21F964CD004C2989 /* Main.storyboard */; };
 		2261D0D021F964CE004C2989 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2261D0CF21F964CE004C2989 /* Assets.xcassets */; };
 		2261D0DE21F964CE004C2989 /* Emoji_DashTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2261D0DD21F964CE004C2989 /* Emoji_DashTests.swift */; };
-		2274151721FD66CB00F8BAE2 /* Pods_Emoji_DashTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2274151621FD66CB00F8BAE2 /* Pods_Emoji_DashTests.framework */; };
 		2274151D21FD6A0200F8BAE2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2274151C21FD6A0200F8BAE2 /* Foundation.framework */; };
-		2274151F21FD6B7900F8BAE2 /* pop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2274151E21FD6B7900F8BAE2 /* pop.framework */; };
 		2274152321FD6FC200F8BAE2 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2274152221FD6FC200F8BAE2 /* Game.swift */; };
 		2274152521FE304500F8BAE2 /* PlatformNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2274152421FE304500F8BAE2 /* PlatformNode.swift */; };
 		2274152721FE30BD00F8BAE2 /* GameObjectNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2274152621FE30BD00F8BAE2 /* GameObjectNode.swift */; };
@@ -28,8 +26,6 @@
 		22B81FFC2206461900B4B57C /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B81FFB2206461900B4B57C /* GameState.swift */; };
 		22CD2CED221F791800692BA5 /* PointNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CD2CEC221F791800692BA5 /* PointNode.swift */; };
 		22E66D772234B6EF0081FE8F /* Firework.sks in Resources */ = {isa = PBXBuildFile; fileRef = 22E66D762234B6EF0081FE8F /* Firework.sks */; };
-		9B0F17E561C9E29340D9A8E6 /* Pods_Emoji_Dash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B19955DF4A19BA7DE02589A8 /* Pods_Emoji_Dash.framework */; };
-		EE2533497096DAD05B972660 /* Pods_Emoji_DashTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2274151621FD66CB00F8BAE2 /* Pods_Emoji_DashTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,9 +53,7 @@
 		2261D0D921F964CE004C2989 /* Emoji-DashTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Emoji-DashTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2261D0DD21F964CE004C2989 /* Emoji_DashTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emoji_DashTests.swift; sourceTree = "<group>"; };
 		2261D0DF21F964CE004C2989 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2274151621FD66CB00F8BAE2 /* Pods_Emoji_DashTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Emoji_DashTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2274151C21FD6A0200F8BAE2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		2274151E21FD6B7900F8BAE2 /* pop.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = pop.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2274152221FD6FC200F8BAE2 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		2274152421FE304500F8BAE2 /* PlatformNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformNode.swift; sourceTree = "<group>"; };
 		2274152621FE30BD00F8BAE2 /* GameObjectNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameObjectNode.swift; sourceTree = "<group>"; };
@@ -68,12 +62,6 @@
 		22B81FFB2206461900B4B57C /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		22CD2CEC221F791800692BA5 /* PointNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointNode.swift; sourceTree = "<group>"; };
 		22E66D762234B6EF0081FE8F /* Firework.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Firework.sks; sourceTree = "<group>"; };
-		22F75CA621F995BB0072B097 /* Emoji-Dash-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Emoji-Dash-Bridging-Header.h"; sourceTree = "<group>"; };
-		5006B531AC1CDBE01BCC0061 /* Pods-Emoji-DashTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Emoji-DashTests.debug.xcconfig"; path = "Target Support Files/Pods-Emoji-DashTests/Pods-Emoji-DashTests.debug.xcconfig"; sourceTree = "<group>"; };
-		B19955DF4A19BA7DE02589A8 /* Pods_Emoji_Dash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Emoji_Dash.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E3907DF0918A2CC7A86A3B41 /* Pods-Emoji-Dash.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Emoji-Dash.debug.xcconfig"; path = "Target Support Files/Pods-Emoji-Dash/Pods-Emoji-Dash.debug.xcconfig"; sourceTree = "<group>"; };
-		E3E476634FB8616640918ADD /* Pods-Emoji-Dash.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Emoji-Dash.release.xcconfig"; path = "Target Support Files/Pods-Emoji-Dash/Pods-Emoji-Dash.release.xcconfig"; sourceTree = "<group>"; };
-		FF07E2D37F7ACA8992EBE455 /* Pods-Emoji-DashTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Emoji-DashTests.release.xcconfig"; path = "Target Support Files/Pods-Emoji-DashTests/Pods-Emoji-DashTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,10 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2274151F21FD6B7900F8BAE2 /* pop.framework in Frameworks */,
 				2274151D21FD6A0200F8BAE2 /* Foundation.framework in Frameworks */,
-				2274151721FD66CB00F8BAE2 /* Pods_Emoji_DashTests.framework in Frameworks */,
-				9B0F17E561C9E29340D9A8E6 /* Pods_Emoji_Dash.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,31 +77,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE2533497096DAD05B972660 /* Pods_Emoji_DashTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		089480F48A3FFEE05AD17B31 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				E3907DF0918A2CC7A86A3B41 /* Pods-Emoji-Dash.debug.xcconfig */,
-				E3E476634FB8616640918ADD /* Pods-Emoji-Dash.release.xcconfig */,
-				5006B531AC1CDBE01BCC0061 /* Pods-Emoji-DashTests.debug.xcconfig */,
-				FF07E2D37F7ACA8992EBE455 /* Pods-Emoji-DashTests.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		2261D0B621F964CD004C2989 = {
 			isa = PBXGroup;
 			children = (
 				2261D0C121F964CD004C2989 /* Emoji-Dash */,
 				2261D0DC21F964CE004C2989 /* Emoji-DashTests */,
 				2261D0C021F964CD004C2989 /* Products */,
-				089480F48A3FFEE05AD17B31 /* Pods */,
 				9B80080041D79B486F48D8A9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -142,7 +114,6 @@
 				2261D0CC21F964CD004C2989 /* Main.storyboard */,
 				2261D0CF21F964CE004C2989 /* Assets.xcassets */,
 				2261D0D421F964CE004C2989 /* Info.plist */,
-				22F75CA621F995BB0072B097 /* Emoji-Dash-Bridging-Header.h */,
 				2274152221FD6FC200F8BAE2 /* Game.swift */,
 				2274152421FE304500F8BAE2 /* PlatformNode.swift */,
 				2274152621FE30BD00F8BAE2 /* GameObjectNode.swift */,
@@ -168,10 +139,7 @@
 		9B80080041D79B486F48D8A9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2274151E21FD6B7900F8BAE2 /* pop.framework */,
 				2274151C21FD6A0200F8BAE2 /* Foundation.framework */,
-				2274151621FD66CB00F8BAE2 /* Pods_Emoji_DashTests.framework */,
-				B19955DF4A19BA7DE02589A8 /* Pods_Emoji_Dash.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -183,11 +151,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2261D0E221F964CE004C2989 /* Build configuration list for PBXNativeTarget "Emoji-Dash" */;
 			buildPhases = (
-				76822793AC2DFB406F14358C /* [CP] Check Pods Manifest.lock */,
 				2261D0BB21F964CD004C2989 /* Sources */,
 				2261D0BC21F964CD004C2989 /* Frameworks */,
 				2261D0BD21F964CD004C2989 /* Resources */,
-				6665506B235DAFF016B8980C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -202,7 +168,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2261D0E521F964CE004C2989 /* Build configuration list for PBXNativeTarget "Emoji-DashTests" */;
 			buildPhases = (
-				B062A7230D1BBD6E1CCB5EFA /* [CP] Check Pods Manifest.lock */,
 				2261D0D521F964CE004C2989 /* Sources */,
 				2261D0D621F964CE004C2989 /* Frameworks */,
 				2261D0D721F964CE004C2989 /* Resources */,
@@ -278,75 +243,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		6665506B235DAFF016B8980C /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Emoji-Dash/Pods-Emoji-Dash-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/pop/pop.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/pop.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Emoji-Dash/Pods-Emoji-Dash-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		76822793AC2DFB406F14358C /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Emoji-Dash-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B062A7230D1BBD6E1CCB5EFA /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Emoji-DashTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2261D0BB21F964CD004C2989 /* Sources */ = {
@@ -517,7 +413,6 @@
 		};
 		2261D0E321F964CE004C2989 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E3907DF0918A2CC7A86A3B41 /* Pods-Emoji-Dash.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
@@ -538,7 +433,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Emoji-Dash";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "Emoji-Dash/Emoji-Dash-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -547,7 +441,6 @@
 		};
 		2261D0E421F964CE004C2989 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E3E476634FB8616640918ADD /* Pods-Emoji-Dash.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
@@ -568,7 +461,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Emoji-Dash";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "Emoji-Dash/Emoji-Dash-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -576,7 +468,6 @@
 		};
 		2261D0E621F964CE004C2989 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5006B531AC1CDBE01BCC0061 /* Pods-Emoji-DashTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -599,7 +490,6 @@
 		};
 		2261D0E721F964CE004C2989 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FF07E2D37F7ACA8992EBE455 /* Pods-Emoji-DashTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";

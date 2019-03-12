@@ -9,7 +9,6 @@
 import Foundation
 import SpriteKit
 import GameplayKit
-import pop
 
 class Game: SKScene {
     
