@@ -17,6 +17,7 @@ class Game: SKScene {
     let bubble = SKNode()
     var hudNode = SKNode()
     var foregroundNode = SKNode()
+    var haze = SKShapeNode()
     
     var springSprite = SKSpriteNode()
     let 👆 = SKSpriteNode(imageNamed: "pointerEmoji")
@@ -340,7 +341,7 @@ class Game: SKScene {
             return
             })
         
-        let haze = SKShapeNode(rect: CGRect(x: 0,
+        haze = SKShapeNode(rect: CGRect(x: 0,
                                             y: 0,
                                             width: displaySize.width,
                                             height: displaySize.height))
@@ -348,10 +349,15 @@ class Game: SKScene {
         haze.fillColor = UIColor(red:1.0, green:1.0, blue:1.0, alpha:0.6)
         haze.zPosition = 4
         
-        bubble.addChild(haze)
         bubble.addChild(👆)
         bubble.addChild(onboardingText)
         addChild(bubble)
+        addChild(haze)
+        
+        let fadeInAction = SKAction.fadeIn(withDuration: 0.6)
+        bubble.run(fadeInAction)
+        onboardingText.run(fadeInAction)
+        👆.run(fadeInAction)
     }
     
     func nextOnboarding(){
@@ -368,23 +374,112 @@ class Game: SKScene {
                 
                 self.👆.removeAllActions()
                 self.👆.position = CGPoint(x: 380, y: 210)
-                let pulseUp = SKAction.scale(to: 1.2, duration: 1.0)
-                let pulseDown = SKAction.scale(to: 0.8, duration: 1.0)
+                let pulseUp = SKAction.scale(to: 1.1, duration: 0.85)
+                let pulseDown = SKAction.scale(to: 0.95, duration: 0.85)
                 self.👆.run(SKAction.repeatForever(SKAction.sequence([pulseUp, pulseDown])))
                 
                 self.onboardingText.run(fadeInAction)
                 self.👆.run(fadeInAction)
                 self.bubble.run(fadeInAction)
-                })
+            })
         }
-        else if bubble.childNode(withName: "tap") != nil{ //remove
-            GameState.sharedInstance.saveState()
-            firstGame = false
+        else if bubble.childNode(withName: "tap") != nil{ //hide and show next
             self.onboardingText.run(fadeOutAction)
             self.👆.run(fadeOutAction)
             self.bubble.run(fadeOutAction, completion: {
+                self.onboardingText.text = "Collect"
+                self.onboardingText.position = CGPoint(x: 380, y: 250)
+                self.onboardingText.name = "collect"
+                self.onboardingText.run(fadeInAction)
+                self.bubble.run(fadeInAction)
+                
+                self.👆.removeFromParent()
+                self.👆.removeAllActions()
+                
+                let 💎 = SKSpriteNode(imageNamed: "diamond")
+                💎.position = CGPoint(x: self.onboardingText.frame.maxX + 35,
+                                        y: self.onboardingText.frame.midY - 45)
+                💎.size = CGSize(width: 35, height: 35)
+                💎.zPosition = 5
+                💎.alpha = 0
+                💎.name = "💎"
+                self.bubble.addChild(💎)
+                💎.run(fadeInAction)
+                
+                let diamondLabel = SKLabelNode(text: "+ 100 points")
+                diamondLabel.position = CGPoint(x: 💎.frame.maxX + 75,
+                                              y: 💎.frame.minY + 8)
+                diamondLabel.zPosition = 5
+                diamondLabel.fontColor = UIColor(displayP3Red: 235/255, green: 0, blue: 72/255, alpha: 1.0)
+                diamondLabel.fontSize = CGFloat(24)
+                diamondLabel.alpha = 0
+                diamondLabel.fontName = "Avenir-Heavy"
+                diamondLabel.name = "diamondLabel"
+                self.bubble.addChild(diamondLabel)
+                diamondLabel.run(fadeInAction)
+                
+                let star = SKSpriteNode(imageNamed: "star") //⭐️
+                star.position = CGPoint(x: self.onboardingText.frame.maxX + 35,
+                                        y: self.onboardingText.frame.midY)
+                star.size = CGSize(width:35, height: 35)
+                star.zPosition = 5
+                star.alpha = 0
+                star.name = "star"
+                self.bubble.addChild(star)
+                star.run(fadeInAction)
+                
+                let starLabel = SKLabelNode(text: "+ 10 points")
+                starLabel.position = CGPoint(x: star.frame.maxX + 70,
+                                                y: star.frame.minY + 8)
+                starLabel.zPosition = 5
+                starLabel.fontColor = UIColor(displayP3Red: 235/255, green: 0, blue: 72/255, alpha: 1.0)
+                starLabel.fontSize = CGFloat(24)
+                starLabel.alpha = 0
+                starLabel.name = "starLabel"
+                starLabel.fontName = "Avenir-Heavy"
+                self.bubble.addChild(starLabel)
+                starLabel.run(fadeInAction)
+            })
+        }
+        else if bubble.childNode(withName: "collect") != nil{ //hide and show next
+            self.onboardingText.run(fadeOutAction)
+            self.👆.run(fadeOutAction)
+
+            self.bubble.run(fadeOutAction, completion: {
+                self.removeBubbleChildren()
+                self.bubble.run(fadeInAction)
+                self.onboardingText.text = "Avoid"
+                self.onboardingText.name = "avoid"
+                self.onboardingText.run(fadeInAction)
+
+                let 😈 = SKSpriteNode(imageNamed: "devil")
+                😈.position = CGPoint(x: self.onboardingText.frame.maxX + 30,
+                                        y: self.onboardingText.frame.midY)
+                😈.size = CGSize(width:35, height: 35)
+                😈.zPosition = 5
+                😈.alpha = 0
+                😈.name = "😈"
+                self.bubble.addChild(😈)
+                😈.run(fadeInAction)
+            })
+        }
+        else if self.onboardingText.text == "Avoid" || bubble.childNode(withName: "😈") != nil{ // remove
+            onboardingText.run(fadeOutAction)
+            self.haze.run(fadeOutAction)
+            GameState.sharedInstance.saveState()
+            firstGame = false
+            self.bubble.run(fadeOutAction, completion: {
+                self.bubble.removeAllChildren()
                 self.bubble.removeFromParent()
             })
+        }
+    }
+    
+    func removeBubbleChildren(){
+        for child in bubble.children {
+            if child.name ==  "starLabel" || child.name == "diamondLabel" || child.name ==  "💎" || child.name == "star" || child.name == "😈" {
+                child.removeFromParent()
+            }
         }
     }
     
