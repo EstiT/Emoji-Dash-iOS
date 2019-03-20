@@ -323,6 +323,7 @@ class Game: SKScene {
         onboardingText.position = CGPoint(x: 150, y: displaySize.height - 120)
         onboardingText.fontColor = UIColor(displayP3Red: 235/255, green: 0, blue: 72/255, alpha: 1.0)
         onboardingText.fontSize = CGFloat(24)
+        onboardingText.zPosition = 5
         onboardingText.numberOfLines = 2
         onboardingText.preferredMaxLayoutWidth = 200
         onboardingText.horizontalAlignmentMode = .center
@@ -331,7 +332,7 @@ class Game: SKScene {
         👆.position = CGPoint(x: player.frame.maxX, y: player.frame.minY - player.frame.size.height - 55)
         👆.size = CGSize(width: 45, height: 45)
         👆.name = "pointer"
-        👆.zPosition = 4
+        👆.zPosition = 5
         let actionMove = SKAction.move(to: CGPoint(x: 👆.position.x - 30, y: 👆.position.y), duration: TimeInterval(0.8))
         let wait = SKAction.wait(forDuration: 1.0)
         let actionMoveReset = SKAction.move(to: CGPoint(x: 👆.position.x , y: 👆.position.y), duration: TimeInterval(0.0))
@@ -339,6 +340,15 @@ class Game: SKScene {
             return
             })
         
+        let haze = SKShapeNode(rect: CGRect(x: 0,
+                                            y: 0,
+                                            width: displaySize.width,
+                                            height: displaySize.height))
+        haze.glowWidth = 1.0
+        haze.fillColor = UIColor(red:1.0, green:1.0, blue:1.0, alpha:0.6)
+        haze.zPosition = 4
+        
+        bubble.addChild(haze)
         bubble.addChild(👆)
         bubble.addChild(onboardingText)
         addChild(bubble)
@@ -398,6 +408,25 @@ class Game: SKScene {
         scoreLabel.text = "0"
         hudNode.addChild(scoreLabel)
         
+        //help
+        let helpLabel = SKLabelNode(fontNamed: "ChalkboardSE-Bold")
+        helpLabel.fontSize = 28
+        helpLabel.fontColor = SKColor.black
+        helpLabel.position = CGPoint(x: displaySize.minX + 22, y: displaySize.height-40)
+        helpLabel.horizontalAlignmentMode = .left
+        helpLabel.text = "?"
+        helpLabel.name = "?"
+        hudNode.addChild(helpLabel)
+        
+        let circ = SKShapeNode(circleOfRadius: helpLabel.frame.width+2)
+        circ.strokeColor = UIColor.black
+        circ.lineWidth = 2.6
+        circ.position = CGPoint(x: helpLabel.frame.midX , y: helpLabel.frame.midY)
+        circ.name = "?"
+        circ.fillColor = UIColor.white
+
+        hudNode.addChild(circ)
+        
         addChild(hudNode)
     }
     
@@ -428,6 +457,10 @@ class Game: SKScene {
                         didSpring = true
                         rotateForever()
                     }
+                }
+                if node.name == "?" {
+                    firstGame = true
+                    showOnboarding()
                 }
             }
         }
