@@ -28,7 +28,7 @@ class Game: SKScene {
     var firstGame: Bool!
     var gameOver: Bool = false
     var didSpring = false
-    var inAir = false
+    var jumpCount = 0
     var endLevelX: Int
     var maxPlayerX: Int
     let levelPlist: String
@@ -528,9 +528,10 @@ class Game: SKScene {
     // MARK: Handle Touches
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if !inAir && didSpring{ //tap to jump
+        //jump or double jump
+        if jumpCount<2 && didSpring{
             player.physicsBody?.applyImpulse(CGVector(dx: 0.0, dy: 45.0))
-            inAir = true
+            jumpCount += 1
         }
     }
     
@@ -726,7 +727,7 @@ extension Game: SKPhysicsContactDelegate {
         
         if let other = ((contact.bodyA.node != player) ? contact.bodyA.node : contact.bodyB.node) as? GameObjectNode {
             if other.name == "platform"{
-                inAir = false
+                jumpCount = 0
             }
             else if other.name == "diamond"{
                 GameState.sharedInstance.score += 100
