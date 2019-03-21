@@ -19,8 +19,6 @@ class PointNode: GameObjectNode {
     var pointType: PointNodeType?
     
     override func collisionWithPlayer(player: SKNode) -> Bool {
-//        TODO - apply impulse?, add points
-
         removeFromParent()
         return true
     }

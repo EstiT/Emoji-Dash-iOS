@@ -75,7 +75,7 @@ class Game: SKScene {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: Player
+    // MARK: 😊 Player
     
     func addPlayer(){
         let sprite = SKSpriteNode(imageNamed: "smileyEmoji")
@@ -87,7 +87,7 @@ class Game: SKScene {
         player.position = CGPoint(x:85, y:140)
         player.physicsBody = SKPhysicsBody(circleOfRadius: sprite.size.width/2)
         player.physicsBody?.isDynamic = true
-        player.physicsBody?.allowsRotation = true //TODO doesnt work
+        player.physicsBody?.allowsRotation = true
         player.physicsBody?.restitution = 0.2
         player.physicsBody?.friction = 0.0
         player.physicsBody?.angularDamping = 0.0
@@ -199,7 +199,6 @@ class Game: SKScene {
     func createPointAt(position: CGPoint, type: PointNodeType) -> PointNode{
         let node = PointNode()
         node.position = position
-//        node.name = "point"
         node.pointType = type
         let path: CGPath!
         let sprite : SKSpriteNode
@@ -549,7 +548,7 @@ class Game: SKScene {
                     springSprite.run(SKAction.sequence([expand, retract]))
                     player.physicsBody?.isDynamic = true
                     if !didSpring{
-                        player.physicsBody?.applyImpulse(CGVector(dx: 26.0, dy: 0.0)) //TODO force based on pull back distance
+                        player.physicsBody?.applyImpulse(CGVector(dx: 26.0, dy: 0.0))
                         didSpring = true
                         rotateForever()
                     }
@@ -595,7 +594,7 @@ class Game: SKScene {
     }
     
     func rotateForever(){
-        let oneRevolution = SKAction.rotate(byAngle: -.pi * 2, duration: 1.0) //TODO adjust rotation speed based on player speed
+        let oneRevolution = SKAction.rotate(byAngle: -.pi * 2, duration: 1.0)
         player.run(SKAction.repeatForever(oneRevolution))
     }
     
@@ -666,8 +665,6 @@ class Game: SKScene {
         player.addChild(sprite)
         
         endGame()
-//        let angel = SKNode() TODO
-//        let angelSprite = SKSpriteNode(imageNamed: <#T##String#>)
     }
     
     func fireworks(){
@@ -745,7 +742,6 @@ extension Game: SKPhysicsContactDelegate {
         if (updateHUD) {
             scoreLabel.text = String(GameState.sharedInstance.score)
         }
-        
     }
     
     
