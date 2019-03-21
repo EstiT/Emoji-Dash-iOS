@@ -487,7 +487,7 @@ class Game: SKScene {
         // Score
         let scoreText = SKLabelNode(fontNamed: "ChalkboardSE-Bold")
         scoreText.fontSize = 28
-        scoreText.zPosition = 10
+        scoreText.zPosition = 3
         scoreText.fontColor = SKColor.black
         scoreText.position = CGPoint(x: displaySize.width-80, y: displaySize.height-40)
         scoreText.horizontalAlignmentMode = .right
@@ -496,7 +496,7 @@ class Game: SKScene {
         
         scoreLabel = SKLabelNode(fontNamed: "ChalkboardSE-Bold")
         scoreLabel.fontSize = 28
-        scoreLabel.zPosition = 10
+        scoreLabel.zPosition = 3
         scoreLabel.fontColor = SKColor.black
         scoreLabel.position = CGPoint(x: scoreText.frame.maxX + 8, y: displaySize.height-40)
         scoreLabel.horizontalAlignmentMode = .left
