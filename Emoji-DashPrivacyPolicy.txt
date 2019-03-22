@@ -1,0 +1,32 @@
+Emoji-Dash Privacy Policy
+
+App Owner: Esti Tweg
+
+Data Being Collected
+	•	Emoji-Dash keeps track of the following:
+	 ⁃	Highest obtained score (number)
+	  ⁃	Completion of on boarding introduction to app (yes/no)
+
+How is the Data Being Collected
+	•	Score
+	 ⁃	After every game is completed, the score is compared to the current high score, if it is greater, then it is saved as the new high score.
+	•	On boarding
+	 ⁃	After every time the on boarding is completed, a variable is set to yes (true) that the on boarding has been completed.
+
+Legal Basis and Purpose for Collection
+	•	The collection of the above information is purely for an optimized user experience.
+	•	The information is not distributed or used in any way besides outlined above.
+	•	Analytics are not collected.
+	•	Third parties do not have access to any information collected.
+	•	Only those with access to the physical device that which the app is loaded on have access to the information collected.
+	 ⁃	i.e: Whoever uses the device can open the app and see the current high score by playing the game. The on boarding variable is not explicitly shown anywhere in the app.  
+
+Rights of Users
+	•	The users have the right to play or not play the game.
+	•	To erase the data collected, delete the app. A re-downloaded app will have no user specific information.
+
+Changes to the Privacy Policy
+	•	The most up to date privacy policy is publicly displayed here. Changes will not explicitly be outlined in this document but are reflected in commit messages.
+
+Effective Date of the Privacy Policy
+March 22, 2019
