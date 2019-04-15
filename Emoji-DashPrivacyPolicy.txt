@@ -5,7 +5,7 @@ App Owner: Esti Tweg
 Data Being Collected
 	•	Emoji-Dash keeps track of the following:
 	 ⁃	Highest obtained score (number)
-	  ⁃	Completion of on boarding introduction to app (yes/no)
+	 ⁃	Completion of on boarding introduction to app (yes/no)
 
 How is the Data Being Collected
 	•	Score
