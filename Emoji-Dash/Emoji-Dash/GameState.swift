@@ -16,6 +16,7 @@ class GameState: NSObject{
     
     var score: Int
     var highScore: Int
+    var level: Int
     
     static var sharedInstance = GameState()
     
@@ -27,7 +28,7 @@ class GameState: NSObject{
         
         highScore = defaults.object(forKey: "highScore") as? Int ?? 0
         score = 0
-        
+        level = 1
         super.init()
     }
     

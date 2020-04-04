@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2209922722358A26002242FD /* DevilNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2209922622358A26002242FD /* DevilNode.swift */; };
+		22204FD72427C718000EB44E /* Level02.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22204FD62427C718000EB44E /* Level02.plist */; };
 		2232722E223222B60053501B /* Level01.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2232722D223222B60053501B /* Level01.plist */; };
 		2261D0C321F964CD004C2989 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2261D0C221F964CD004C2989 /* AppDelegate.swift */; };
 		2261D0C521F964CD004C2989 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2261D0C421F964CD004C2989 /* GameScene.sks */; };
@@ -40,6 +41,7 @@
 
 /* Begin PBXFileReference section */
 		2209922622358A26002242FD /* DevilNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevilNode.swift; sourceTree = "<group>"; };
+		22204FD62427C718000EB44E /* Level02.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Level02.plist; sourceTree = "<group>"; };
 		2232722D223222B60053501B /* Level01.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Level01.plist; sourceTree = "<group>"; };
 		2261D0BF21F964CD004C2989 /* Emoji-Dash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Emoji-Dash.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2261D0C221F964CD004C2989 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				22CD2CEC221F791800692BA5 /* PointNode.swift */,
 				22E66D762234B6EF0081FE8F /* Firework.sks */,
 				2209922622358A26002242FD /* DevilNode.swift */,
+				22204FD62427C718000EB44E /* Level02.plist */,
 			);
 			path = "Emoji-Dash";
 			sourceTree = "<group>";
@@ -232,6 +235,7 @@
 				2261D0D021F964CE004C2989 /* Assets.xcassets in Resources */,
 				22E66D772234B6EF0081FE8F /* Firework.sks in Resources */,
 				2261D0C721F964CD004C2989 /* Actions.sks in Resources */,
+				22204FD72427C718000EB44E /* Level02.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -41,7 +41,13 @@ class EndGameScene: SKScene{
         lblTryAgain.fontColor = SKColor.white
         lblTryAgain.position = CGPoint(x: displaySize.maxX/2, y: 50)
         lblTryAgain.horizontalAlignmentMode = .center
-        lblTryAgain.text = "Tap To Try Again"
+        if GameState.sharedInstance.level == 1 {
+            lblTryAgain.text = "Tap To Try Again"
+        }
+        else if GameState.sharedInstance.level == 2{
+            lblTryAgain.text = "Tap To Go to Level 2"
+        }
+        
         addChild(lblTryAgain)
         
         let pulseUp = SKAction.scale(to: 1.05, duration: 0.8)
@@ -61,6 +67,5 @@ class EndGameScene: SKScene{
         gameScene.anchorPoint = CGPoint(x: 0.0, y: 0.0)
         let reveal = SKTransition.flipHorizontal(withDuration: 0.6)
         view?.presentScene(gameScene, transition: reveal)
-        
     }
 }

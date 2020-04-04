@@ -37,7 +37,12 @@ class Game: SKScene {
     let displaySize: CGRect = UIScreen.main.bounds
     override init(size: CGSize) {
         // Load the level
-        levelPlist = Bundle.main.path(forResource: "Level01", ofType: "plist")!
+        if GameState.sharedInstance.level == 1 {
+            levelPlist = Bundle.main.path(forResource: "Level01", ofType: "plist")!
+        }
+        else {
+            levelPlist = Bundle.main.path(forResource: "Level02", ofType: "plist")!
+        }
         levelData = NSDictionary(contentsOfFile: levelPlist)!
         
         endLevelX = levelData["EndX"] as! Int
@@ -51,14 +56,7 @@ class Game: SKScene {
         physicsWorld.gravity = CGVector(dx: 0, dy: -9.0)
         physicsWorld.contactDelegate = self
         
-        addSpring()
-        foregroundNode.addChild(createPlatformAt(position: CGPoint(x:85, y:110), type: PlatformType.PLATFORM_GREEN))
-        addPlatforms()
-        addPointNodes()
-        addPlayer()
-        addDevils()
-        addChild(foregroundNode)
-        addHud()
+        addGameElements()
         
         if !Utility().isKeyPresentInUserDefaults(key: "firstOpen") {
             firstGame = true
@@ -76,6 +74,18 @@ class Game: SKScene {
     }
     
     // MARK: 😊 Player
+    func addGameElements(){
+        addSpring()
+        foregroundNode.addChild(createPlatformAt(position: CGPoint(x:85, y:110), type: PlatformType.PLATFORM_GREEN))
+        addPlatforms()
+        addPointNodes()
+        addPlayer()
+        addDevils()
+        addChild(foregroundNode)
+        addHud()
+    }
+    
+    // MARK: Player
     
     func addPlayer(){
         let sprite = SKSpriteNode(imageNamed: "smileyEmoji")
@@ -637,6 +647,7 @@ class Game: SKScene {
             player.physicsBody?.isDynamic = false
             player.removeAllActions()
             fireworks() //celebrate winning
+            GameState.sharedInstance.level = 2
         }
         //fell
         if Int(player.position.y) <= Int((self.view?.frame.minY)!) + 22 {
